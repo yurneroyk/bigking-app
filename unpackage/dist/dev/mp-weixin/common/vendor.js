@@ -2051,9 +2051,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 13:
-/*!********************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/filters/index.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/filters/index.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2091,17 +2091,17 @@ function dateFormat(time) {
 /***/ }),
 
 /***/ 14:
-/*!*******************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/config/index.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/config/index.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 var config = {
-  baseUrl: 'http://127.0.0.1:8080',
+  baseUrl: 'http://192.168.8.183:8080',
   // baseUrl: 'https://demo.easycampus.cn',
   h5Appid: 'wxb66b599f7f61b46f',
-  debug: false };
+  debug: true };
 
 module.exports = config;
 
@@ -8167,9 +8167,9 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 22);
 /***/ }),
 
 /***/ 216:
-/*!***********************************************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/components/QS-SharePoster/QS-SharePoster.js ***!
-  \***********************************************************************************************************************/
+/*!**********************************************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/components/QS-SharePoster/QS-SharePoster.js ***!
+  \**********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9466,9 +9466,9 @@ module.exports = {
 /***/ }),
 
 /***/ 217:
-/*!************************************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/components/QS-SharePoster/app.js ***!
-  \************************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/components/QS-SharePoster/app.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10035,9 +10035,9 @@ module.exports = _app;
 /***/ }),
 
 /***/ 218:
-/*!******************************************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/components/QS-SharePoster/QRCodeAlg.js ***!
-  \******************************************************************************************************************/
+/*!*****************************************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/components/QS-SharePoster/QRCodeAlg.js ***!
+  \*****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11834,9 +11834,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 240:
-/*!***************************************************************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/components/Winglau14-lotusAddress/Winglau14-lotusAddress.js ***!
-  \***************************************************************************************************************************************/
+/*!**************************************************************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/components/Winglau14-lotusAddress/Winglau14-lotusAddress.js ***!
+  \**************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11846,9 +11846,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.lotusAddre
 /***/ }),
 
 /***/ 255:
-/*!****************************************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/components/u-parse/libs/html2json.js ***!
-  \****************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/components/u-parse/libs/html2json.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12118,9 +12118,9 @@ html2json;exports.default = _default;
 /***/ }),
 
 /***/ 256:
-/*!****************************************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/components/u-parse/libs/wxDiscode.js ***!
-  \****************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/components/u-parse/libs/wxDiscode.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12323,9 +12323,9 @@ function urlToHttpUrl(url, domain) {
 /***/ }),
 
 /***/ 257:
-/*!*****************************************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/components/u-parse/libs/htmlparser.js ***!
-  \*****************************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/components/u-parse/libs/htmlparser.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12521,9 +12521,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 4:
-/*!**************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/pages.json ***!
-  \**************************************************************************************/
+/*!*************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/pages.json ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -12532,9 +12532,9 @@ module.exports = g;
 /***/ }),
 
 /***/ 5:
-/*!******************************************************************************************!*\
-  !*** /Users/yournyk/work/workspaces/product/bingwang/unimall/unimall-app/store/index.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** /Users/yournyk/work/workspaces/product/bigking/unimall/bigking-app/store/index.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

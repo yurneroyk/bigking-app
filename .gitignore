@@ -3,6 +3,7 @@
 .idea
 .vscode
 .hbuilderx
+unpackage
 *.suo
 *.ntvs*
 *.njsproj
