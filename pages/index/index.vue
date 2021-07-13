@@ -44,9 +44,14 @@
 		</view>
 		
 		<view class="ad-1">
-			<text class="left">汽车大保养</text>
-			<!-- <image src="../../static/baoyang.png" class='left'></image> -->
-			<text class="right">汽车大保养</text>
+			<view class="left">
+			  <text>汽车大保养</text>
+			  <image src="../../static/baoyang.png"  mode="aspectFit" class="baoyang"></image>
+			</view>
+			<view class="right">
+			  <text >汽车大保养</text>
+			  <image src="../../static/baoyang.png" mode="aspectFit" class="baoyang"></image>
+			</view>
 		</view>
 		
 		<!-- 秒杀楼层 -->
@@ -513,29 +518,45 @@
 		margin-top: 16rpx;
 		width: 100%;
 		height: 150upx;
-		padding: 10upx 10upx;
+		padding: 5upx 5upx;
 		background: #fff;
 		display: flex;
 		// flex-wrap: wrap;
 		align-items: center;
 		font-size: 26rpx;
+		color: #fff;
 		.left{
-			flex: 42%;
+			flex: 1 1 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 			margin-left: 10px;
-			margin-top: 5px;
-			margin-right: 10px;
-			background: #00BFFF;
-			border:20px solid #00BFFF;
-			border-radius:5px;
+			margin-right: 9px;
+			padding:5px 10px;
+			border-radius:4px;
+			background-image: url(../../static/bg_blue.png);
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			.baoyang{
+			  width: 48px;
+			  height: 48px;
+			}
 		}
 		.right{
-			flex: 42%;
-			margin-left: 10px;
-			margin-top: 5px;
+			flex: 1 1 0;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 			margin-right: 10px;
-			background: #00BFFF;
-			border:20px solid #00BFFF;
-			border-radius:5px;
+			padding:5px 10px;
+			border-radius:4px;
+			background-image: url(../../static/bg_red.png);
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			.baoyang{
+			  width: 48px; 
+			  height: 48px;
+			}
 		}
 	}
 	/* 秒杀专区 */

@@ -1,5 +1,9 @@
 <template>
 	<view class="container">
+		<view class="navbar">
+			<text class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)" >上门保修</text>
+			<text class="nav-item" :class="{current: filterIndex === 1}" @click="tabClick(1)">到店维修</text>
+		</view>
 		<!-- 空白页 -->
 		<view v-if="!hasLogin || empty===true" class="empty">
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
@@ -14,7 +18,7 @@
 		</view>
 		<view v-else>
 			<!-- 列表 -->
-			<view class="cart-list">
+			<view  class="cart-list">
 				<block v-for="(item, index) in cartList" :key="item.id">
 					<view
 						class="cart-item" 
@@ -81,18 +85,26 @@
 	import {
 		mapState
 	} from 'vuex';
-	import uniNumberBox from '@/components/uni-number-box.vue'
+	import uniNumberBox from '@/components/uni-number-box.vue';
 	export default {
 		components: {
-			uniNumberBox
+			uniNumberBox,
 		},
 		data() {
 			return {
 				totalItems: 0, //总数量
+				filterIndex:0,
 				total: 0, //总价格
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
-				cartList: [],
+				cartList: [
+					{   
+						id:'1',
+						title:'1',
+						checked:false,
+						skuTitle:'一',
+					}
+				],
 				loadedItemIds: new Set()
 			};
 		},
@@ -139,6 +151,13 @@
 				uni.navigateTo({
 					url: '/pages/public/login'
 				})
+			},
+			//筛选点击
+			tabClick(index) {
+				if (this.filterIndex === index && index !== 1) {
+					return;
+				}
+				this.filterIndex = index;
 			},
 			 //选中状态处理
 			check(type, index){
@@ -244,6 +263,7 @@
 
 <style lang='scss'>
 	.container{
+		padding-top: 96upx;
 		padding-bottom: 134upx;
 		/* 空白页 */
 		.empty{
@@ -270,6 +290,40 @@
 				.navigator{
 					color: $uni-color-primary;
 					margin-left: 16upx;
+				}
+			}
+		}
+	}
+	.navbar{
+		position: fixed;
+		left: 0;
+		top: var(--window-top);
+		display: flex;
+		width: 100%;
+		height: 80upx;
+		background: #fff;
+		box-shadow: 0 2upx 10upx rgba(0, 0, 0, .06);
+		z-index: 10;
+		.nav-item {
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			font-size: 30upx;
+			color: $font-color-dark;
+			position: relative;
+			&.current {
+				color: $base-color;
+				&:after {
+					content: '';
+					position: absolute;
+					left: 50%;
+					bottom: 0;
+					transform: translateX(-50%);
+					width: 120upx;
+					height: 0;
+					border-bottom: 4upx solid $base-color;
 				}
 			}
 		}
