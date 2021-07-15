@@ -63,7 +63,7 @@
             "path" : "pages/product/list",
             "style" : {
 				"enablePullDownRefresh": true,
-				"navigationBarTitleText": "商品列表"
+				"navigationBarTitleText": "预约列表"
 			}
         }, {
             "path" : "pages/product/appraise",
@@ -78,7 +78,7 @@
 		}, {
 			"path": "pages/cart/cart",
 			"style": {
-				"navigationBarTitleText": "购物车"
+				"navigationBarTitleText": "我的订单"
 			}
 		}, {
 			"path": "pages/public/login",
@@ -168,6 +168,14 @@
             "path" : "pages/category/category",
             "style" : {
 				"navigationBarTitleText": "分类",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+        },{
+            "path" : "pages/bus/busType",
+            "style" : {
+				"navigationBarTitleText": "车型选择",
 				"app-plus": {
 					"bounce": "none"
 				}

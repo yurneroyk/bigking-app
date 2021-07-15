@@ -1,15 +1,24 @@
 <template>
 	<view class="container">
-		<view class="navbar">
-			<text class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)" >上门保修</text>
-			<text class="nav-item" :class="{current: filterIndex === 1}" @click="tabClick(1)">到店维修</text>
+		<view class="header">
+			<view class="carbar">
+				<!-- <image :src="item.imgUrl"></image> -->
+				<!-- <text>全部车型</text> -->
+				<list-cell class="bar" icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#34dac5" title="全部车型" @eventClick="navToBusList('/pages/bus/busType')"></list-cell>
+			</view>
+			<view class="navbar">
+				<view v-for="(item, index) in navList" :key="index" class="nav-item" :class="{current: tabCurrentIndex === index}"
+				 @click="tabClick(index)">
+					{{item.text}}
+				</view>
+			</view>
 		</view>
 		<!-- 空白页 -->
 		<view v-if="!hasLogin || empty===true" class="empty">
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
-			<view v-if="hasLogin" class="empty-tips">
+			<view v-if="!hasLogin" class="empty-tips">
 				空空如也
-				<navigator class="navigator" v-if="hasLogin" url="/pages/index/index" open-type="switchTab">随便逛逛></navigator>
+				<navigator class="navigator" v-if="!hasLogin" url="/pages/index/index" open-type="switchTab">随便逛逛></navigator>
 			</view>
 			<view v-else class="empty-tips">
 				空空如也
@@ -86,17 +95,32 @@
 		mapState
 	} from 'vuex';
 	import uniNumberBox from '@/components/uni-number-box.vue';
+	import listCell from '@/components/mix-list-cell';
 	export default {
 		components: {
 			uniNumberBox,
+			listCell
 		},
 		data() {
 			return {
 				totalItems: 0, //总数量
-				filterIndex:0,
 				total: 0, //总价格
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
+				tabCurrentIndex: 0,
+				navList: [{
+						text: '全部',
+					},
+					{
+						text: '待完成',
+					},
+					{
+						text: '已完成',
+					},
+					{
+						text: '已取消',
+					}
+				],
 				cartList: [
 					{   
 						id:'1',
@@ -127,6 +151,11 @@
 			...mapState(['hasLogin'])
 		},
 		methods: {
+			navToBusList(url){
+				uni.navigateTo({  
+					url
+				})
+			}, 
 			//请求数据
 			async loadData(){
 				const that = this
@@ -135,6 +164,15 @@
 						item.checked = true
 					})
 					that.cartList = res.data
+					that.cartList = 
+					[
+					    {   
+						   id:'1',
+						   title:'1',
+						   checked:false,
+						   skuTitle:'一',
+					    }
+				     ]
 					that.calcTotal();  //计算总价
 				})
 			},
@@ -152,12 +190,9 @@
 					url: '/pages/public/login'
 				})
 			},
-			//筛选点击
+			//顶部tab点击
 			tabClick(index) {
-				if (this.filterIndex === index && index !== 1) {
-					return;
-				}
-				this.filterIndex = index;
+				this.tabCurrentIndex = index;
 			},
 			 //选中状态处理
 			check(type, index){
@@ -264,7 +299,56 @@
 <style lang='scss'>
 	.container{
 		padding-top: 96upx;
-		padding-bottom: 134upx;
+		padding-bottom: 14upx;
+		.header{
+			position: fixed;
+			left: 0;
+			top: var(--window-top);
+			width: 100%;
+			background: #fff;
+			box-shadow: 0 2upx 10upx rgba(0, 0, 0, .06);
+			z-index: 10;
+			.carbar{
+				display: flex;
+				align-items: center;
+				width: 100%;
+				height: 80upx;
+				background: #fff;
+				.bar{
+					width: 100%;
+					z-index: 10;
+				}
+			}
+			.navbar{
+				display: flex;
+				height: 80upx;
+				margin-top: 10px;
+				.nav-item {
+					flex: 1;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					height: 100%;
+					font-size: 30upx;
+					color: $font-color-dark;
+					position: relative;
+					&.current {
+						color: $base-color;
+						&:after {
+							content: '';
+							position: absolute;
+							left: 50%;
+							bottom: 0;
+							transform: translateX(-50%);
+							width: 120upx;
+							height: 0;
+							border-bottom: 4upx solid $base-color;
+						}
+					}
+				}
+			}
+			
+		}
 		/* 空白页 */
 		.empty{
 			position:fixed;
@@ -294,40 +378,7 @@
 			}
 		}
 	}
-	.navbar{
-		position: fixed;
-		left: 0;
-		top: var(--window-top);
-		display: flex;
-		width: 100%;
-		height: 80upx;
-		background: #fff;
-		box-shadow: 0 2upx 10upx rgba(0, 0, 0, .06);
-		z-index: 10;
-		.nav-item {
-			flex: 1;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100%;
-			font-size: 30upx;
-			color: $font-color-dark;
-			position: relative;
-			&.current {
-				color: $base-color;
-				&:after {
-					content: '';
-					position: absolute;
-					left: 50%;
-					bottom: 0;
-					transform: translateX(-50%);
-					width: 120upx;
-					height: 0;
-					border-bottom: 4upx solid $base-color;
-				}
-			}
-		}
-	}
+	
 	/* 购物车列表项 */
 	.cart-item{
 		display:flex;

@@ -8,7 +8,6 @@
 			<text class="cell-tit clamp">{{title}}</text>
 			<text v-if="tips" class="cell-tip">{{tips}}</text>
 			<text class="cell-more yticon" :class="typeList[navigateType]"></text>
-
 		</view>
 	</view>
 </template>

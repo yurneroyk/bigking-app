@@ -22,7 +22,7 @@
 				</view>
 			</block>
 		</view>
-
+         
 
 	</view>
 </template>
