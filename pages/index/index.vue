@@ -46,7 +46,7 @@
 		</view>
 		
 		<view class="ad-1">
-			<view class="left">
+			<view class="left" @click="navToService">
 			  <text>汽车大保养</text>
 			  <image src="../../static/baoyang.png"  mode="aspectFit" class="baoyang"></image>
 			</view>
@@ -314,6 +314,11 @@
 			navToDetailPage(id) {
 				uni.navigateTo({
 					url: `/pages/product/detail?id=${id}`
+				})
+			},
+			navToService(){
+				uni.navigateTo({
+					url: `/pages/service/service`
 				})
 			},
 			// 橱窗推荐跳转

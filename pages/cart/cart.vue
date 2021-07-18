@@ -4,7 +4,7 @@
 			<view class="carbar">
 				<!-- <image :src="item.imgUrl"></image> -->
 				<!-- <text>全部车型</text> -->
-				<list-cell class="bar" icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#34dac5" title="全部车型" @eventClick="navToBusList('/pages/bus/busType')"></list-cell>
+				<list-cell class="bar" icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#34dac5" title="全部车型" tips="更换" @eventClick="navToBusList('/pages/bus/busList')"></list-cell>
 			</view>
 			<view class="navbar">
 				<view v-for="(item, index) in navList" :key="index" class="nav-item" :class="{current: tabCurrentIndex === index}"
@@ -16,9 +16,9 @@
 		<!-- 空白页 -->
 		<view v-if="!hasLogin || empty===true" class="empty">
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
-			<view v-if="!hasLogin" class="empty-tips">
+			<view v-if="hasLogin" class="empty-tips">
 				空空如也
-				<navigator class="navigator" v-if="!hasLogin" url="/pages/index/index" open-type="switchTab">随便逛逛></navigator>
+				<navigator class="navigator" v-if="hasLogin" url="/pages/index/index" open-type="switchTab">随便逛逛></navigator>
 			</view>
 			<view v-else class="empty-tips">
 				空空如也

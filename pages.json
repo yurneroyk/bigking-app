@@ -172,14 +172,6 @@
 					"bounce": "none"
 				}
 			}
-        },{
-            "path" : "pages/bus/busType",
-            "style" : {
-				"navigationBarTitleText": "车型选择",
-				"app-plus": {
-					"bounce": "none"
-				}
-			}
         }, {
             "path" : "pages/coupon/list",
             "style" : {
@@ -188,7 +180,31 @@
 					"bounce": "none"
 				}
 			}
-        } 
+        },{
+            "path" : "pages/bus/busList",
+            "style" : {
+				"navigationBarTitleText": "车型选择",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+        },{
+            "path" : "pages/bus/vechice",
+            "style" : {
+				"navigationBarTitleText": "车型设置",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+        },{
+            "path" : "pages/service/service",
+            "style" : {
+				"navigationBarTitleText": "服务选择",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
