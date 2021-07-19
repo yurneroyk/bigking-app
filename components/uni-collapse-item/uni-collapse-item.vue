@@ -3,7 +3,21 @@
 	 class="uni-collapse-cell">
 		<view class="uni-collapse-cell__title" @click="onClick">
 			<image v-if="thumb" :src="thumb" class="uni-collapse-cell__title-img" />
-			<text class="uni-collapse-cell__title-text">{{ title }}</text>
+			<uni-icons
+			    v-if="icon"
+				:size="20"
+				class="uni-collapse-check"
+				:color="isOpen?'#fa436a':'#bbb'"
+				type="checkbox-filled"
+			/>
+			
+			<view class="uni-collapse-cell__title-text">
+				<view class="name">
+					{{ title }}
+					<uni-badge :text="bage" class="detail" type="primary" />
+				</view>
+				<view class="suggest">{{ note }}</view>
+			</view>
 			<!-- #ifdef MP-ALIPAY -->
 			<view :class="{ 'uni-collapse-cell__title-arrow-active': isOpen, 'uni-collapse-cell--animation': showAnimation === true }"
 			 class="uni-collapse-cell__title-arrow">
@@ -24,15 +38,32 @@
 </template>
 
 <script>
-	import uniIcons from '../uni-icons/uni-icons.vue'
+	import uniIcons from '../uni-icons/uni-icons.vue';
+	import uniBadge from '../uni-badge/uni-badge.vue';
 	export default {
 		name: 'UniCollapseItem',
 		components: {
 			uniIcons
 		},
 		props: {
+			icon: {
+				type: String,
+				default: ''
+			},
 			title: {
 				// 列表标题
+				type: String,
+				default: ''
+			},
+			
+			bage:{
+				//标签
+				type: String,
+				default: '详情'
+			},
+			
+			note:{
+				// 列表二级标题
 				type: String,
 				default: ''
 			},
@@ -74,7 +105,7 @@
 		},
 		inject: ['collapse'],
 		created() {
-			this.isOpen = this.open
+			this.isOpen = this.open;
 			this.nameSync = this.name ? this.name : this.collapse.childrens.length
 			this.collapse.childrens.push(this)
 			if (String(this.collapse.accordion) === 'true') {
@@ -116,8 +147,9 @@
 		border-bottom-width: 1px;
 		border-bottom-style: solid;
 	}
-
-
+	.uni-collapse-check {
+		margin-right:10upx 
+	}
 	.uni-collapse-cell--hover {
 		background-color: $uni-bg-color-hover;
 	}
@@ -152,7 +184,6 @@
 		box-sizing: border-box;
 		/* #endif */
 		height: 48px;
-		line-height: 24px;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
@@ -182,16 +213,25 @@
 
 	.uni-collapse-cell__title-text {
 		flex: 1;
-		font-size: $uni-font-size-base;
+		padding: 18upx 0;
+		font-size: $font-base;
 		/* #ifndef APP-NVUE */
 		white-space: nowrap;
 		color: inherit;
 		/* #endif */
 		/* #ifdef APP-NVUE */
-		lines: 1;
 		/* #endif */
 		overflow: hidden;
 		text-overflow: ellipsis;
+		.name{
+			.detail{
+				margin-left: 20upx;
+			}
+		}
+		.suggest{
+			font-size: $font-sm;
+			color: $font-color-light;
+		}
 	}
 
 	.uni-collapse-cell__content {

@@ -4,19 +4,47 @@
 		<view class="main">
 			<uni-list @change="change" v-for="(ele,index) in serviceList" :key="index" class="service">
 				<view class="ele-title">{{ele.title}}</view>
-				<uni-collapse>
-					<uni-collapse-item  
-						v-for="(item,index) in ele.List" 
-						:key="index" 
+				<uni-collapse 
+					@change="allCheck"
+				>
+					<uni-collapse-item
+					    v-for="item in ele.List"
+						icon='checkbox'
+					    :key="item.id"
+					    :name="item.id"
+						:note="item.suggest"
 						:title="item.title"
-						open
-						thumb="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png"
 					>
-						<!-- <view v-if="item.goods.length>0"> -->
-							<view v-for="(good,index) in item.goods" :key="index" style="padding: 30rpx;">
-								{{good.name}}
+						<view 
+							v-for="(good,index) in item.goods" 
+							:key="index" 
+							style="background-color: #fff; padding-left: 30upx;" 
+						>
+							<view class="good">
+								<view class="first-line">
+									<image src="../../static/baoyang.png" mode="aspectFit" class="good-img"></image>
+									<view class="good-detail">
+										<view class="name">
+											{{good.name}}
+											<uni-icons
+												:size="20" 
+												:color="good.checked?'#fa436a':'#bbb'"
+												type="checkbox-filled"
+												@click="check(good)"
+											/>
+										</view>
+										<view class="des">{{good.des}}</view>
+										<text v-if="good.note" >
+											<span class="note">{{good.note}}</span>
+										</text>
+									</view>
+								</view>
+								<view class="second-line">
+									<text class="left-second">机油更换工时</text>
+									<text class="right-second">$50</text>
+								</view>
 							</view>
-						<!-- </view> -->
+						</view>
 					</uni-collapse-item>
 				</uni-collapse>
 			</uni-list>
@@ -29,6 +57,7 @@
 		mapState
 	} from 'vuex';
 	import listCell from '@/components/mix-list-cell';
+	import uniIcons from '@/components/uni-icons/uni-icons.vue';
 	export default {
 		components: {
 			listCell
@@ -47,35 +76,97 @@
 							{
 								id:'0',
 								title:'小保养服务',
-								checked:true,
+								suggest:'建议车内出现异味时立刻清洗',
 								goods:[
-									{name:"1"},
-									{name:"2"},
-									{name:"3"}
+									{	
+										
+										name:"美孚机油",
+										des:'美孚速霸矿物油 5w-304升',
+										note:'矿物质',
+										checked:true,
+									},
+									{   
+										name:"索菲玛机滤",
+										des:'索菲玛S3291R1',
+										checked:true,
+										
+									},
+									{	
+										name:"索菲机滤",
+										des:'索菲玛S3291R1s',
+										checked:true,
+									},
 								]
 							},{   
 								id:'1',
 								title:'大保养服务',
-								checked:false,
 								goods:[
-									{name:"1"},
-									{name:"2"},
-									{name:"3"}
+									{	
+										
+										name:"美孚机油",
+										des:'美孚速霸矿物油 5w-304升',
+										note:'矿物质',
+										checked:true,
+									},
+									{   
+										name:"索菲玛机滤",
+										des:'索菲玛S3291R1',
+										checked:true,
+										
+									},
+									{	
+										name:"索菲机滤",
+										des:'索菲玛S3291R1s',
+										checked:true,
+									},
 								]
 							},{   
-								id:'1',
+								id:'2',
 								title:'可视化空调清洗',
-								checked:false,
 								goods:[
-									{name:"1"},
-									{name:"2"},
-									{name:"3"}
+									{	
+										
+										name:"美孚机油",
+										des:'美孚速霸矿物油 5w-304升',
+										note:'矿物质',
+										checked:true,
+									},
+									{   
+										name:"索菲玛机滤",
+										des:'索菲玛S3291R1',
+										checked:true,
+										
+									},
+									{	
+										name:"索菲机滤",
+										des:'索菲玛S3291R1s',
+										checked:true,
+									},
 								]
 							},{   
-								id:'1',
+								id:'3',
 								title:'节气门清洗',
 								checked:false,
-								goods:[]
+								goods:[
+									{	
+										
+										name:"美孚机油",
+										des:'美孚速霸矿物油 5w-304升',
+										note:'矿物质',
+										checked:true,
+									},
+									{   
+										name:"索菲玛机滤",
+										des:'索菲玛S3291R1',
+										checked:true,
+										
+									},
+									{	
+										name:"索菲机滤",
+										des:'索菲玛S3291R1s',
+										checked:true,
+									},
+								]
 							},
 							
 						]
@@ -93,7 +184,7 @@
 									{name:"3"}
 								]
 							},{   
-								id:'1',
+								id:'2',
 								title:'服务1',
 								checked:false,
 								goods:[
@@ -102,7 +193,7 @@
 									{name:"3"}
 								]
 							},{   
-								id:'1',
+								id:'3',
 								title:'服务1',
 								checked:true,
 								goods:[
@@ -179,20 +270,26 @@
 			tabClick(index) {
 				this.tabCurrentIndex = index;
 			},
-			 //选中状态处理
-			check(type, index){
-				if(type === 'item'){
-					this.cartList[index].checked = !this.cartList[index].checked;
-				}else{
-					const checked = !this.allChecked
-					const list = this.cartList;
-					list.forEach(item=>{
-						item.checked = checked;
-					})
-					this.allChecked = checked;
-				}
-				this.calcTotal(type);
+			allCheck(val){
+				console.log(val)
 			},
+			check(val){
+				val.checked = !val.checked
+			},
+			 //选中状态处理
+			// check(type, index){
+			// 	if(type === 'item'){
+			// 		this.cartList[index].checked = !this.cartList[index].checked;
+			// 	}else{
+			// 		const checked = !this.allChecked
+			// 		const list = this.cartList;
+			// 		list.forEach(item=>{
+			// 			item.checked = checked;
+			// 		})
+			// 		this.allChecked = checked;
+			// 	}
+			// 	this.calcTotal(type);
+			// },
 			//数量
 			numberChange(data){
 				const that = this
@@ -309,6 +406,52 @@
 			background-color: #f5f5f5;
 		}
 	} 
+}
+.good{
+	padding: 24upx;
+	font-size: $font-base;
+	color: $font-color-dark;
+	.first-line{
+		display: flex;
+		align-items: center;
+		.good-img{
+		  width: 52px;
+		  height: 52px;
+		}
+		.good-detail{
+			width: 100%;
+			margin-left: 20upx;
+			font-size: $font-sm;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			.name{
+				display: flex;
+				justify-content: space-between;
+				font-size: $font-base;
+			}
+			.des{
+				margin: 8upx 0;
+				color: $font-color-light;
+			}
+			.note{
+				color: #f5a623 ;
+				text-align: center;
+				border: .5px solid #f5a623;
+				border-radius: 2px;
+				padding: 1upx 4upx;
+			}
+			.checked{
+				color: $uni-color-primary;
+			}
+			
+		}
+	}
+	.second-line{
+		display: flex;
+		margin-top:20upx;
+		justify-content: space-between;
+	}
 }
 
 /* 底部栏 */
