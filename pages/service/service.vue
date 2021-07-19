@@ -2,39 +2,24 @@
 	<view>
 		<list-cell class="header" icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#34dac5" title="全部车型" tips="更换" @eventClick="navToBusList('/pages/bus/busList')"></list-cell>
 		<view class="main">
-			<view v-for="(ele,index) in serviceList" :key="index" class="service">
+			<uni-list @change="change" v-for="(ele,index) in serviceList" :key="index" class="service">
 				<view class="ele-title">{{ele.title}}</view>
-				<uni-list v-for="(value,key,index) in ele.List" :key="index">
-					<uni-list-item 
-					    :show-extra-icon="true" 
-						:note="value.title"
-						:show-arrow="value.next" 
-						:title="value.title"
-						@click="choose(value.data,value.name,value.next)" 
-					/>
-				</uni-list>
-			</view>
-		</view>
-		<view class="action-section">
-			<view class="checkbox">
-				<image 
-					:src="allChecked?'/static/selected.png':'/static/select.png'" 
-					mode="aspectFit"
-					@click="check('all')"
-				></image>
-				<view class="clear-btn" :class="{show: allChecked}" @click="clearCart">
-					清空
-				</view>
-			</view>
-			<view class="total-box">
-				<text class="price">¥{{total / 100.0}}</text>
-				<text class="coupon">
-					总共
-					<text>{{totalItems}}</text>
-					件
-				</text>
-			</view>
-			<button type="primary" class="no-border confirm-btn" @click="createOrder">去结算</button>
+				<uni-collapse>
+					<uni-collapse-item  
+						v-for="(item,index) in ele.List" 
+						:key="index" 
+						:title="item.title"
+						open
+						thumb="https://vkceyugu.cdn.bspapp.com/VKCEYUGU-dc-site/460d46d0-4fcc-11eb-8ff1-d5dcf8779628.png"
+					>
+						<!-- <view v-if="item.goods.length>0"> -->
+							<view v-for="(good,index) in item.goods" :key="index" style="padding: 30rpx;">
+								{{good.name}}
+							</view>
+						<!-- </view> -->
+					</uni-collapse-item>
+				</uni-collapse>
+			</uni-list>
 		</view>
 	</view>
 </template>
@@ -57,91 +42,77 @@
 				tabCurrentIndex: 0,
 				serviceList:[
 					{
-						title:'火花塞',
+						title:'推荐保养项目',
 						List:[
 							{
-								id:'1',
-								title:'aaa服务1',
+								id:'0',
+								title:'小保养服务',
 								checked:true,
-								skuTitle:'一',
+								goods:[
+									{name:"1"},
+									{name:"2"},
+									{name:"3"}
+								]
 							},{   
 								id:'1',
-								title:'bbb服务1',
+								title:'大保养服务',
 								checked:false,
-								skuTitle:'一',
+								goods:[
+									{name:"1"},
+									{name:"2"},
+									{name:"3"}
+								]
 							},{   
 								id:'1',
-								title:'ccc服务1',
+								title:'可视化空调清洗',
 								checked:false,
-								skuTitle:'一',
-								price:'200',
-								originalPrice:'300'
+								goods:[
+									{name:"1"},
+									{name:"2"},
+									{name:"3"}
+								]
+							},{   
+								id:'1',
+								title:'节气门清洗',
+								checked:false,
+								goods:[]
 							},
+							
 						]
 					},
 					{
-						title:'火花塞1',
+						title:'自主保养项目',
 						List:[
 							{
 								id:'1',
 								title:'服务1',
 								checked:false,
-								skuTitle:'一',
+								goods:[
+									{name:"1"},
+									{name:"2"},
+									{name:"3"}
+								]
 							},{   
 								id:'1',
 								title:'服务1',
 								checked:false,
-								skuTitle:'一',
+								goods:[
+									{name:"1"},
+									{name:"2"},
+									{name:"3"}
+								]
 							},{   
 								id:'1',
 								title:'服务1',
 								checked:true,
-								skuTitle:'一',
+								goods:[
+									{name:"1"},
+									{name:"2"},
+									{name:"3"}
+								]
 							},
 						]
 					},
-					{
-						title:'火花塞2',
-						List:[
-							{
-								id:'1',
-								title:'服务1',
-								checked:false,
-								skuTitle:'一',
-							},{   
-								id:'1',
-								title:'服务1',
-								checked:false,
-								skuTitle:'一',
-							},{   
-								id:'1',
-								title:'服务1',
-								checked:true,
-								skuTitle:'一',
-							},
-						]
-					},
-					{
-						title:'火花塞3',
-						List:[
-							{
-								id:'1',
-								title:'服务1',
-								checked:false,
-								skuTitle:'一',
-							},{   
-								id:'1',
-								title:'服务1',
-								checked:false,
-								skuTitle:'一',
-							},{   
-								id:'1',
-								title:'服务1',
-								checked:true,
-								skuTitle:'一',
-							},
-						]
-					}
 				],
 				loadedItemIds: new Set()
 			};
