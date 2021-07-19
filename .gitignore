@@ -4,6 +4,7 @@
 .vscode
 .hbuilderx
 node_modules
+unpackage
 /unpackage
 /dist
 

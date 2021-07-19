@@ -45,14 +45,14 @@
 			</swiper>
 		</view>
 		
-		<view class="ad-1">
-			<view class="left" @click="navToService">
-			  <text>汽车大保养</text>
-			  <image src="../../static/baoyang.png"  mode="aspectFit" class="baoyang"></image>
+		<view v-if="windowSpuList && windowSpuList.length == 2" class="ad-1">
+			<view class="left" @click="navToAdvertTargetPage(windowSpuList[0])">
+			  <text>{{ windowSpuList[0].title }}</text>
+			  <image :src="windowSpuList[0].imgUrl"  mode="aspectFit" class="baoyang"></image>
 			</view>
-			<view class="right">
-			  <text >汽车大保养</text>
-			  <image src="../../static/baoyang.png" mode="aspectFit" class="baoyang"></image>
+			<view class="right" @click="navToAdvertTargetPage(windowSpuList[1])">
+			  <text >{{ windowSpuList[1].title }}</text>
+			  <image :src="windowSpuList[1].imgUrl" mode="aspectFit" class="baoyang"></image>
 			</view>
 		</view>
 		
@@ -82,56 +82,44 @@
 		</view> -->
 		
 		<!-- 员工推荐 -->
-		<view v-if="windowSpuList && windowSpuList.length > 0" class="f-header m-t">
+		<view  class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
 				<text class="tit">员工推荐</text>
 				<text class="tit2">Shop Window</text>
 			</view>
 		</view>
-		<view v-if="windowSpuList && windowSpuList.length > 0" class="group-section">
+		<view class="group-section">
 			<swiper class="g-swiper" :duration="500">
 				<swiper-item
 					class="g-swiper-item"
-					v-if="index % 2 === 0"
-					v-for="(item, index) in windowSpuList" :key="index"
 				>
-					<view @click="navToWindowSuggestSpu(index)" class="g-item left">
-						<image :src="item.img + '?x-oss-process=style/400px'" mode="aspectFill"></image>
+					<view class="g-item left">
+						<image :src="bestStaffList[0].imgUrl" mode="aspectFill"></image>
 						<view class="t-box">
-							<text class="title clamp">{{item.title}}</text>
+							<text class="title clamp">{{bestStaffList[0].title}}</text>
 							<view class="price-box">
-								<!-- <text class="price">￥{{isVip ? (item.vipPrice / 100.0 + ' [VIP]') : (item.price / 100.0)}}</text> -->
-								<!-- <text v-if="item.originalPrice > (isVip ? item.vipPrice : item.price)" class="m-price">￥{{item.originalPrice / 100}}</text> -->
+								<text class="price">大厂技术，高级资质认证！</text>
 							</view>
-							
-							<!-- <view class="pro-box">
-								<text>累计销售:{{item.sales}}件</text>
-							</view> -->
 						</view>
 						            
 					</view>
-					<view v-if="index + 1 < windowSpuList.length" @click="navToWindowSuggestSpu(index + 1)" class="g-item right">
-						<image :src="windowSpuList[index+1].img" mode="aspectFill"></image>
+					<view class="g-item right">
+						<image :src="bestStaffList[1].imgUrl" mode="aspectFill"></image>
 						<view class="t-box">
-							<text class="title clamp">{{windowSpuList[index+1].title}}</text>
+							<text class="title clamp">{{bestStaffList[1].title}}</text>
 							<view class="price-box">
-								<text class="price">￥{{isVip ? (windowSpuList[index+1].vipPrice / 100.0 + ' [VIP]') : (windowSpuList[index+1].price / 100.0)}}</text> 
-								<text v-if="windowSpuList[index+1].originalPrice > (isVip ? (windowSpuList[index+1].vipPrice) : (windowSpuList[index+1].price))" class="m-price">￥{{windowSpuList[index+1].originalPrice / 100.0}}</text> 
-							</view>
-							<view class="pro-box">
-								<text>累计销售:{{windowSpuList[index+1].sales}}件</text>
+								<text class="price">高级资质认证！</text> 
 							</view>
 						</view>
 					</view>
-					<view v-if="index + 1 === windowSpuList.length" class="g-item right"></view>
 				</swiper-item>
 
 			</swiper>
 		</view>
 		
 		<!-- 分类推荐楼层 -->
-		<view class="f-header m-t">
+		<!-- <view class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
 				<text class="tit">分类精选</text>
@@ -160,17 +148,17 @@
 				</view>
 			</scroll-view>
 		</view>
-		
+		 -->
 		<!-- 销量top -->
-		<view class="f-header m-t">
+		<!-- <view class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
 				<text class="tit">热销宝贝</text>
 				<text class="tit2">Hot Sale</text>
 			</view>
-		</view>
+		</view> -->
 		
-		<view class="guess-section">
+		<!-- <view class="guess-section">
 			<view 
 				v-for="(item, index) in salesTop" :key="index"
 				class="guess-item"
@@ -182,9 +170,7 @@
 				<text class="title clamp">{{item.title}}</text>
 				<text class="price">￥{{isVip ? (item.vipPrice / 100 + ' [VIP]') : item.price / 100}}</text>
 			</view>
-		</view>
-		
-
+		</view> -->
 	</view>
 </template>
 
@@ -200,14 +186,11 @@
 				swiperLength: 0,
 				carouselList: [],
 				windowSpuList: [],
-				categoryPickList: [],
+				bestStaffList: [],
 				categoryButtomList: [
 					{
 						title: "",
 						imgUrl: ""
-					},
-					{
-						
 					}
 				],
 				salesTop: [],
@@ -276,26 +259,25 @@
 						that.swiperLength = data.advertisement.t1.length
 						that.titleNViewBackground = data.advertisement.t1[0].color
 					}
-					//分类精选
+					//员工推荐
 					if (data.advertisement.t2) {
-						that.categoryPickList = data.advertisement.t2
+						that.bestStaffList = data.advertisement.t2
 					}
 					//横幅
 					if (data.advertisement.t3 && data.advertisement.t3.length > 0) {
 						that.banner = data.advertisement.t3[0]
 					}
-					//热销
-					if (data.salesTop) {
-						that.salesTop = data.salesTop
-					}
+					// //热销
+					// if (data.salesTop) {
+					// 	that.salesTop = data.salesTop
+					// }
 					//分类5Buttom
 					if (data.advertisement.t4) {
 						that.categoryButtomList = data.advertisement.t4
 					}
-					//橱窗
+					//两栏广告
 					if (data.advertisement.t9) {
-						this.windowSpuList = data.advertisement.t9.map(item => item.data)
-						console.log(this.windowSpuList)
+						this.windowSpuList = data.advertisement.t9
 					}
 					//公告
 					if (data.advertisement.t6) {
@@ -322,12 +304,12 @@
 				})
 			},
 			// 橱窗推荐跳转
-			navToWindowSuggestSpu(index) {
-				const that = this
-				uni.navigateTo({
-					url: '/pages/product/detail?id=' + that.windowSpuList[index].id
-				})
-			},
+			// navToWindowSuggestSpu(index) {
+			// 	const that = this
+			// 	uni.navigateTo({
+			// 		url: '/pages/product/detail?id=' + that.windowSpuList[index].id
+			// 	})
+			// },
 			// 跳转到广告目标页
 			navToAdvertTargetPage(advert) {
 				// 针对Advert Type 不同做不同跳转
@@ -338,8 +320,11 @@
 				} else if (unionType === 2) {
 					url = '/pages/product/list?tid=' + unionValue
 				} else if (unionType === 3) {
-					url = '/pages/product/list?keyword=' + unionValue
-				} else if (unionType === 4) {
+					// url = '/pages/service/service?tid=' + unionValue
+					url = '/pages/service/service?tid=2'
+				} else if (unionType === 5) {
+					url = '/pages/staff/detail?id=' + unionValue
+				}else if (unionType === 4) {
 					url = unionValue
 				}
 				uni.navigateTo({

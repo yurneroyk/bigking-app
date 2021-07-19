@@ -9,6 +9,7 @@
 				>
 					<uni-collapse-item
 					    v-for="item in ele.List"
+						:checked = "item.id == tid"
 						icon='checkbox'
 					    :key="item.id"
 					    :name="item.id"
@@ -16,8 +17,8 @@
 						:title="item.title"
 					>
 						<view 
-							v-for="(good,index) in item.goods" 
-							:key="index" 
+							v-for="(good,index1) in item.goods" 
+							:key="index1" 
 							style="background-color: #fff; padding-left: 30upx;" 
 						>
 							<view class="good">
@@ -205,11 +206,14 @@
 						]
 					},
 				],
-				loadedItemIds: new Set()
+				loadedItemIds: new Set(),
+				tid: ''
 			};
 		},
-		onLoad(){
-			
+		onLoad(options){
+			const that = this
+			that.tid = options.tid
+			console.log("aaa"+options.tid);
 		},
 		onShow() {
 			this.loadData();
