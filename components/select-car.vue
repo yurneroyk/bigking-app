@@ -15,14 +15,12 @@
 			</text>
 			<scroll-view class="view-content" scroll-y>
 				<view class="share-list">
-					<view 
-						v-for="(item, index) in shareList" :key="item.od"
-						class="share-item" 
+					<carItem 
+						v-for="(item, index) in shareList" 
+						:key="index" 
+						:data="item" 
 						@click.stop="shareToFriend(item.text)"
-					>
-						<image :src="item.icon" mode="aspectFit"></image>
-						<text>{{item.name}}</text>
-					</view>
+					></carItem>
 				</view>
 			</scroll-view>
 			<button class="bottom b-t" @click="toggleMask">其他车型</button>
@@ -31,7 +29,12 @@
 </template>
 
 <script>
+	import carItem from '@/components/carItem.vue';
+	
 	export default {
+		components:{
+			carItem
+		},
 		data() {
 			return {
 				transform: 'translateY(50vh)',
@@ -206,8 +209,8 @@
 		 }
 	}
 	.share-list{
-		display:flex;
-		flex-wrap: wrap;
+		/* display:flex;
+		flex-wrap: wrap; */
 		padding-bottom: 210upx;
 	}
 	.share-item{

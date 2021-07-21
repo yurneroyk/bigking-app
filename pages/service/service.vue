@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<currentCar @change="editCar"></currentCar>
+		<currentCar></currentCar>
 		<view class="main">
 			<uni-list @change="change" v-for="(ele,index) in serviceList" :key="index" class="service">
 				<view class="ele-title">{{ele.title}}</view>
@@ -265,9 +265,6 @@
 				uni.navigateTo({  
 					url
 				})
-			},
-			editCar(){
-				this.$refs.popup.open('top')
 			},
 			async loadData(){
 				const that = this
