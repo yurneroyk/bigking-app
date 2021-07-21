@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<list-cell class="header" icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#34dac5" title="全部车型" tips="更换" @eventClick="navToBusList('/pages/bus/busList')"></list-cell>
+		<currentCar @change="editCar"></currentCar>
 		<view class="main">
 			<uni-list @change="change" v-for="(ele,index) in serviceList" :key="index" class="service">
 				<view class="ele-title">{{ele.title}}</view>
@@ -27,16 +27,20 @@
 									<view class="good-detail">
 										<view class="name">
 											{{good.name}}
-											<uni-icons
-												:size="20" 
-												:color="good.checked?'#fa436a':'#bbb'"
-												type="checkbox-filled"
-												@click="check(good)"
-											/>
+											<view class="first-right">
+											  <text>¥{{ good.price|| 50 }}</text>
+											  <view class="splite">|</view>
+											  <uni-icons
+											  	:size="20" 
+											  	:color="good.checked?'#fa436a':'#bbb'"
+											  	type="checkbox-filled"
+											  	@click="check(good)"
+											  />
+											</view>
 										</view>
 										<view class="des">{{good.des}}</view>
-										<text v-if="good.note" >
-											<span class="note">{{good.note}}</span>
+										<text  >
+											<span v-if="good.note" class="note">{{good.note}}</span>
 										</text>
 									</view>
 								</view>
@@ -50,6 +54,27 @@
 				</uni-collapse>
 			</uni-list>
 		</view>
+		<view class="action-section">
+			<view class="checkbox">
+				<image 
+					:src="allChecked?'/static/selected.png':'/static/select.png'" 
+					mode="aspectFit"
+					@click="check('all')"
+				></image>
+				<view class="clear-btn" :class="{show: allChecked}" @click="clearCart">
+					清空
+				</view>
+			</view>
+			<view class="total-box">
+				<text class="price">¥{{total / 100.0}}</text>
+				<text class="coupon">
+					总共
+					<text>{{totalItems}}</text>
+					件
+				</text>
+			</view>
+			<button type="primary" class="no-border confirm-btn" @click="createOrder">去结算</button>
+		</view>
 	</view>
 </template>
 
@@ -57,11 +82,13 @@
 	import {
 		mapState
 	} from 'vuex';
-	import listCell from '@/components/mix-list-cell';
+	import currentCar from '@/components/current-car.vue';
 	import uniIcons from '@/components/uni-icons/uni-icons.vue';
+	import uniPopupDailog from '@/components/uni-popup/uni-popup-dialog.vue';
 	export default {
 		components: {
-			listCell
+			currentCar,
+			uniPopupDailog
 		},
 		data() {
 			return {
@@ -70,6 +97,7 @@
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				tabCurrentIndex: 0,
+				
 				serviceList:[
 					{
 						title:'推荐保养项目',
@@ -84,11 +112,13 @@
 										name:"美孚机油",
 										des:'美孚速霸矿物油 5w-304升',
 										note:'矿物质',
+										price:"60",
 										checked:true,
 									},
 									{   
 										name:"索菲玛机滤",
 										des:'索菲玛S3291R1',
+										price:"60",
 										checked:true,
 										
 									},
@@ -235,8 +265,10 @@
 				uni.navigateTo({  
 					url
 				})
-			}, 
-			//请求数据
+			},
+			editCar(){
+				this.$refs.popup.open('top')
+			},
 			async loadData(){
 				const that = this
 				that.$api.request('cart', 'getCartList').then(res => {
@@ -399,8 +431,6 @@
 	
 }
 .main{
-	margin-top:80upx;
-	padding: 20upx 0;
 	border-radius: 20rpx;
 	.service{
 		.ele-title{
@@ -433,17 +463,23 @@
 				display: flex;
 				justify-content: space-between;
 				font-size: $font-base;
+				.first-right{
+					display: flex;
+					align-items: center;
+					.splite{
+						padding: 0 8upx;
+					}
+				}
 			}
 			.des{
-				margin: 8upx 0;
+				padding-bottom: 10upx;
 				color: $font-color-light;
 			}
 			.note{
 				color: #f5a623 ;
-				text-align: center;
-				border: .5px solid #f5a623;
+				font-size: $font-sm;
+				border: 1upx solid #f5a623;
 				border-radius: 2px;
-				padding: 1upx 4upx;
 			}
 			.checked{
 				color: $uni-color-primary;
@@ -464,12 +500,12 @@
 	/* margin-bottom:100upx; */
 	/* #endif */
 	position:fixed;
-	left: 30upx;
 	bottom:30upx;
 	z-index: 95;
 	display: flex;
 	align-items: center;
-	width: 690upx;
+	width: 90%;
+	margin: 0 30upx;
 	height: 100upx;
 	padding: 0 30upx;
 	background: rgba(255,255,255,.9);

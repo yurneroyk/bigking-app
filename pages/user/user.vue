@@ -84,7 +84,7 @@
 				<!-- <list-cell icon="icon-huifu" iconColor="#e07472" title="在线客服" :openType="'contact'"></list-cell> -->
 				<!-- #endif -->
 				<list-cell icon="icon-tuandui" iconColor="#EE82EE" title="个人资料" @eventClick="navTo('/pages/user/profile')"></list-cell>
-				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/product/favorite')"></list-cell>
+				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/car/mycar')"></list-cell>
 				<list-cell icon="icon-iconfontweixin" iconColor="#EEEE00" title="我的优惠券" @eventClick="navTo('/pages/coupon/list?type=user')"></list-cell>
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/list')"></list-cell>
 				<list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="关于" @eventClick="navTo('/pages/user/about')"></list-cell>

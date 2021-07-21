@@ -97,7 +97,7 @@
 							return uni.$emit('vechice_computed',this.select_path)
 						}
 						uni.navigateTo({
-						    url: '/pages/bus/vechice'
+						    url: '/pages/car/vechice'
 						});
 					
 					}
