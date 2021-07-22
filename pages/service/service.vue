@@ -16,40 +16,14 @@
 						:note="item.suggest"
 						:title="item.title"
 					>
-						<view 
+						<service-item 
 							v-for="(good,index1) in item.goods" 
 							:key="index1" 
-							style="background-color: #fff; padding-left: 30upx;" 
+							style="background-color: #fff; padding-left: 30upx;"  
+							:good="good"
+							@check="checkItem"
 						>
-							<view class="good">
-								<view class="first-line">
-									<image src="../../static/baoyang.png" mode="aspectFit" class="good-img"></image>
-									<view class="good-detail">
-										<view class="name">
-											{{good.name}}
-											<view class="first-right">
-											  <text>¥{{ good.price|| 50 }}</text>
-											  <view class="splite">|</view>
-											  <uni-icons
-											  	:size="20" 
-											  	:color="good.checked?'#fa436a':'#bbb'"
-											  	type="checkbox-filled"
-											  	@click="check(good)"
-											  />
-											</view>
-										</view>
-										<view class="des">{{good.des}}</view>
-										<text  >
-											<span v-if="good.note" class="note">{{good.note}}</span>
-										</text>
-									</view>
-								</view>
-								<view class="second-line">
-									<text class="left-second">机油更换工时</text>
-									<text class="right-second">$50</text>
-								</view>
-							</view>
-						</view>
+						</service-item>
 					</uni-collapse-item>
 				</uni-collapse>
 			</uni-list>
@@ -76,12 +50,12 @@
 		mapState
 	} from 'vuex';
 	import currentCar from '@/components/current-car.vue';
+	import serviceItem from '@/components/serviceItem.vue';
 	import uniIcons from '@/components/uni-icons/uni-icons.vue';
-	import uniPopupDailog from '@/components/uni-popup/uni-popup-dialog.vue';
 	export default {
 		components: {
 			currentCar,
-			uniPopupDailog
+			serviceItem,
 		},
 		data() {
 			return {
@@ -93,7 +67,6 @@
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				tabCurrentIndex: 0,
-				
 				serviceList:[
 					{
 						title:'推荐保养项目',
@@ -257,6 +230,9 @@
 			...mapState(['hasLogin'])
 		},
 		methods: {
+			checkItem(val){
+				console.log(val)
+			},
 			navToBusList(url){
 				uni.navigateTo({  
 					url

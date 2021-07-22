@@ -85,7 +85,8 @@
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				tabCurrentIndex: 0,
-				navList: [{
+				navList: [
+					{
 						text: '全部',
 					},
 					{
