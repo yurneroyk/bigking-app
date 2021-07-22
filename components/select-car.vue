@@ -10,30 +10,42 @@
 				transform: transform
 			}]"
 		>   
-			<text class="share-header" @click="toMyCar">
-				我的爱车
-			</text>
+			<view class="share-header" @click="toMyCar">
+			  <text>我的爱车</text>
+			  <text class="right">编辑</text>
+			</view>
 			<scroll-view class="view-content" scroll-y>
-				<view class="share-list">
+				<view v-if="userInfo.carList.length" class="share-list">
 					<carItem 
-						v-for="(item, index) in shareList" 
-						:key="index" 
-						:data="item" 
-						@click.stop="shareToFriend(item.text)"
+						v-for="(item, index) in userInfo.carList" 
+						:key="item.id" 
+						:data="item"
+						:select="select"
+						@selectItem="change(item)"
 					></carItem>
 				</view>
+				<view v-else class="empty">
+					<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
+					<view class="empty-tips">
+						空空如也
+					<view class="navigator" @click="toMyCarList">去添加></view>	
+					</view>
+					
+				</view>
 			</scroll-view>
-			<button class="bottom b-t" @click="toggleMask">其他车型</button>
+			<button v-if="showButton" class="bottom b-t" @click="toMyCarList">其他车型</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import { mapState } from 'vuex';
 	import carItem from '@/components/carItem.vue';
-	
+	import empty from '@/components/empty.vue';
 	export default {
 		components:{
-			carItem
+			carItem,
+			empty
 		},
 		data() {
 			return {
@@ -41,6 +53,7 @@
 				timer: 0,
 				backgroundColor: 'rgba(0,0,0,0)',
 				show: false,
+				select:'',
 				config: {},
 			};
 		},
@@ -49,17 +62,24 @@
 				type: Number,
 				default: 0
 			},
+			showButton:{
+				type: Boolean,
+				default: true
+			},
 			//是否是tabbar页面
 			hasTabbar:{
 				type: Boolean,
 				default: false
 			},
-			shareList:{
+			carList:{
 				type: Array,
 				default: function(){
 					return [];
 				}
 			}
+		},
+		computed:{
+			...mapState(['userInfo'])
 		},
 		created() {
 			const height = uni.upx2px(this.contentHeight) + 'px';
@@ -72,10 +92,25 @@
 		},
 		methods:{
 			toMyCar(){
-				console.log(111)
 				uni.navigateTo({
 					url:'/pages/car/mycar'
 				})
+			},
+			toMyCarList(){
+				setTimeout(()=>{
+					this.show = false;
+					uni.navigateTo({
+						url:'/pages/car/carList'
+					})
+					this.hasTabbar && uni.showTabBar();
+				}, 100)
+			},
+			change(item){
+				if(this.select === item.id){
+					this.select=''
+				}else{
+					this.select = item.id
+				}
 			},
 			toggleMask(){
 				//防止高频点击
@@ -91,9 +126,6 @@
 					this.transform = this.config.transform;
 					this.backgroundColor = 'rgba(0,0,0,0)';
 					setTimeout(()=>{
-						uni.navigateTo({
-							url:"/pages/car/carList"
-						})
 						this.show = false;
 						this.hasTabbar && uni.showTabBar();
 					}, 100)
@@ -122,27 +154,8 @@
 			},
 			//防止冒泡和滚动穿透
 			stopPrevent(){},
-			//分享操作
-			shareToFriend(type){
-				if(this.timer == 1){
-					return;
-				}
-				this.timer = 1;
-				setTimeout(()=>{
-					this.timer = 0;
-				}, 500)
-				if(this.show){
-					this.transform = this.config.transform;
-					this.backgroundColor = 'rgba(0,0,0,0)';
-					setTimeout(()=>{
-						this.show = false;
-						this.hasTabbar && uni.showTabBar();
-					}, 100)
-					
-					return;
-				}
-			},
 		}
+		
 	}
 </script>
 
@@ -174,7 +187,6 @@
 			color: #FFFFFF;
 		}
 	}
-	
 	.mask-content{
 		width: 100%;
 		height: 580upx;
@@ -190,44 +202,39 @@
 	.share-header{
 		height: 110upx;
 		font-size: $font-base+2upx;
-		color: font-color-dark;
+		display:flex;
+		align-items:center;
+		justify-content: space-between;
+		padding: 24upx;
+		.right{
+			color: $font-color-spec;
+		}
+	}
+	.share-list{
+		padding-bottom: 210upx;
+	}
+	.empty{
 		display:flex;
 		align-items:center;
 		justify-content: center;
-		padding-top: 10upx;
-		&:before, &:after{
-			content: '';
-			width: 240upx;
-			heighg: 0;
-			border-top: 1px solid $border-color-base;
-			transform: scaleY(.5);
-			margin-right: 30upx;
-		}
-		 &:after{
-			 margin-left: 30upx;
-			 margin-right: 0;
-		 }
-	}
-	.share-list{
-		/* display:flex;
-		flex-wrap: wrap; */
-		padding-bottom: 210upx;
-	}
-	.share-item{
-		min-width: 33.33%;
-		display:flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		height: 180upx;
+		position: relative;
+		height:calc(100%-90upx);
+		width: 100%;
+		background: #fff;
 		image{
-			width: 80upx;
-			height: 80upx;
-			margin-bottom: 16upx;
+			width: 240upx;
+			height: 160upx;
+			margin-bottom:30upx;
 		}
-		text{
-			font-size: $font-base;
-			color: $font-color-base;
+		.empty-tips{
+			display:flex;
+			font-size: $font-sm+2upx;
+			color: $font-color-disabled;
+			.navigator{
+				color: #0f80ff;
+				margin-left: 16upx;
+			}
 		}
 	}
 </style>

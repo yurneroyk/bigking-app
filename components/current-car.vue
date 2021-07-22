@@ -7,19 +7,20 @@
 				<text class="car-desc">{{carDesc}}</text>
 			</view>
 			<view class="car-select" @click="update">
-				<text class="icon-text">更新</text>
+				<text class="icon-text">更换</text>
 				<uni-icons type="arrowright"></uni-icons>
 			</view>
 		</view>
 		<selectCar
 			ref="share" 
+			:showButton="showButton"
 			:contentHeight="580"
-			:shareList="mycars"
 		></selectCar>
 	</view>
 </template>
 
 <script>
+	import { mapState } from 'vuex'; 
 	import uniIcons from './uni-icons/uni-icons.vue';
 	import selectCar from '@/components/select-car.vue';
 	export default {
@@ -28,53 +29,29 @@
 			uniIcons,
 			selectCar
 		},
+		props:{
+			showButton:{
+				type:Boolean,
+				default:true
+			}
+		},
+		computed: {
+			...mapState(['userInfo'])
+		},
 		data() {
 			return {
 				carName:"奥迪(一汽)A4",
 				carDesc:"2006年款 2.4L 手动档 三厢",
-				mycars:[
-					{
-						id:'0',
-						name:'奥迪一汽',
-						icon:'../static/emptyCart.jpg'
-					},{   
-						id:'1',
-						name:'奥迪进口',
-						icon:'../static/emptyCart.jpg'
-					},{   
-						id:'1',
-						name:'奥迪进口',
-						icon:'../static/emptyCart.jpg'
-					},{   
-						id:'1',
-						name:'奥迪进口',
-						icon:'../static/emptyCart.jpg'
-					},{   
-						id:'1',
-						name:'奥迪进口',
-						icon:'../static/emptyCart.jpg'
-					},{   
-						id:'1',
-						name:'奥迪进口',
-						icon:'../static/emptyCart.jpg'
-					},{   
-						id:'1',
-						name:'奥迪进口',
-						icon:'../static/emptyCart.jpg'
-					}
-				],
+				mycars:[]
 			};
 		},
 		methods:{
-			navToCarPath(url){
-				uni.navigateTo({  
-					url
-				})
-			}, 
 			update(){
 				this.$refs.share.toggleMask();
+				console.log(this.userInfo)
 			}	
-		}
+		},
+		created(){}
 	}
 </script>
 

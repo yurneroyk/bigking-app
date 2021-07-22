@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<view class="nav">
-			<currentCar></currentCar>
+			<currentCar :showButton="false"></currentCar>
 			<view class="navbar">
 				<view 
 					v-for="(item, index) in navList" 
@@ -299,7 +299,7 @@
 			color: $font-color-dark;
 			position: relative;
 			&.current {
-				color: $base-color;
+				color: #0f80ff;
 				&:after {
 					content: '';
 					position: absolute;
@@ -308,7 +308,7 @@
 					transform: translateX(-50%);
 					width: 120upx;
 					height: 0;
-					border-bottom: 4upx solid $base-color;
+					border-bottom: 4upx solid #0f80ff;
 				}
 			}
 		}

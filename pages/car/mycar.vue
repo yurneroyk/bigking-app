@@ -1,9 +1,22 @@
 <template>
 	<view class="main">
-		<view v-if="mycars.length" >
-			<uni-list v-for="car in mycars" :key="car.id" class="service">
-				<carItem :data="car"></carItem>
-			</uni-list>
+		<view v-if="userInfo.carList.length" >
+			<view v-for="car in userInfo.carList" class="bar">
+				<image src="@/static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
+				<view class="car-detail">
+					<text v-if="car.name" class="car-name">{{car.name}}</text>
+					<text v-if="car.desc" class="car-desc">{{car.desc}}</text>
+				</view>
+				<view  class="car-select" @click="remove(car)">
+					<uni-icons
+						:size="20" 
+						color="#0f80ff"
+						type="trash"
+					/>
+					<text class="remove">删除</text>
+				</view>
+				
+			</view>
 		</view> 
 		<view v-else class="empty">
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
@@ -14,36 +27,21 @@
 		</view>
 	</view>
 </template>
-
 <script>
-	import {
-		mapState
-	} from 'vuex';
-	import currentCar from '@/components/current-car.vue';
-	import carItem from '@/components/carItem.vue';
+	import { mapState } from 'vuex';
+	
 	export default {
-		components: {
-			currentCar,
-			carItem
-		},
+		components: {},
 		data() {
-			return {
-				mycars:[
-					{
-						id:'0',
-						name:'奥迪一汽',
-					},{   
-						id:'1',
-						name:'奥迪进口',
-					},{   
-						id:'2',
-						name:'奥迪一汽A6',
-					}
-				],
-			};
+			return {};
 		},
-		
-		onShow() {},
+		computed:{
+			...mapState(['userInfo'])
+		},
+		onShow() {
+			console.log(11)
+			console.log(this.userInfo)
+		},
 		watch:{
 			//显示空白页
 			cartList(e){
@@ -53,28 +51,89 @@
 				}
 			}
 		},
-		computed:{
-			...mapState(['hasLogin'])
-		},
 		methods: {
 			navTocarList(url){
 				uni.navigateTo({  
 					url
 				})
-			}, 
+			},
+			remove(val){
+				this.userInfo.carList = this.userInfo.carList.filter(item => item.id !==val.id)
+			}
 		}
 	}
 </script>
 
 <style lang='scss'>
+
 .main{
 	position: fixed;
 	left: 0;
 	top: var(--window-top);
 	width: 100%;
+	height: 100%;
 	border-radius: 20rpx;
-	.service{
-	} 
+}
+
+.bar {
+	padding:24upx;
+	height: 108upx;
+	display: flex;
+	background-color: #fff;
+	align-items: center;
+	.car-image{
+		width:60upx;
+		height:60upx;
+		margin-right: 16upx;
+	}
+	.car-detail{
+		display: flex;
+		flex-direction: column;
+		.car-name{
+			font-size: $font-sm;
+			height: 32upx;
+			line-height: 32upx;
+			text-align: left;
+			
+		}
+		.car-desc{
+			font-size: $font-base;
+			height: 28upx;
+			line-height: 28upx;
+			text-align: left;
+		}
+	}
+	.car-select{
+		margin-left:auto;
+		.remove{
+			font-size: $font-sm;
+		}
+		
+	}
+}
+.empty{
+	display:flex;
+	align-items:center;
+	justify-content: center;
+	flex-direction: column;
+	position: relative;
+	height: calc(100% - 90upx);
+	width: 100%;
+	background: #fff;
+	image{
+		width: 240upx;
+		height: 160upx;
+		margin-bottom:30upx;
+	}
+	.empty-tips{
+		display:flex;
+		font-size: $font-sm+2upx;
+		color: $font-color-disabled;
+		.navigator{
+			color: $uni-color-primary;
+			margin-left: 16upx;
+		}
+	}
 }
 .footer {
 	position: fixed;

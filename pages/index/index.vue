@@ -9,7 +9,6 @@
 			
 		</view> -->
 		<!-- #endif -->
-		
 		<!-- 头部轮播 -->
 		<view class="carousel-section">
 			<!-- 标题栏和状态栏占位符 -->
@@ -55,32 +54,6 @@
 			  <image :src="windowSpuList[1].imgUrl" mode="aspectFit" class="baoyang"></image>
 			</view>
 		</view>
-		
-		<!-- 秒杀楼层 -->
-		<!-- <view class="seckill-section m-t">
-			<view class="s-header">
-				<image class="s-img" src="/static/temp/secskill-img.jpg" mode="widthFix"></image>
-				<text class="tip">8点场</text>
-				<text class="hour timer">07</text>
-				<text class="minute timer">13</text>
-				<text class="second timer">55</text>
-				<text class="yticon icon-you"></text>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view 
-						v-for="(item, index) in goodsList" :key="index"
-						class="floor-item"
-						@click="navToDetailPage(item.id)"
-					>
-						<image :src="item.image" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view> -->
-		
 		<!-- 员工推荐 -->
 		<view  class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
@@ -117,65 +90,15 @@
 
 			</swiper>
 		</view>
-		
-		<!-- 分类推荐楼层 -->
-		<!-- <view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
-			<view class="tit-box">
-				<text class="tit">分类精选</text>
-				<text class="tit2">Competitive Products For You</text>
-			</view>
-		</view>
-		<view v-for="(item, index) in categoryPickList" :key="index" class="hot-floor">
-			<view class="floor-img-box">
-				<image class="floor-img" :src="item.imgUrl" mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view 
-						v-for="(spuItem, skuIndex) in item.data" :key="skuIndex"
-						class="floor-item"
-						@click="navToDetailPage(spuItem.id)"
-					>
-						<image :src="spuItem.img + '?x-oss-process=style/200px'" mode="aspectFill"></image>
-						<text class="title clamp">{{spuItem.title}}</text>
-						<text class="price">￥{{(isVip ? spuItem.vipPrice : spuItem.price) / 100 }}</text>
-					</view>
-					<view @click="navToAdvertTargetPage(item)" class="more">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		 -->
-		<!-- 销量top -->
-		<!-- <view class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
-			<view class="tit-box">
-				<text class="tit">热销宝贝</text>
-				<text class="tit2">Hot Sale</text>
-			</view>
-		</view> -->
-		
-		<!-- <view class="guess-section">
-			<view 
-				v-for="(item, index) in salesTop" :key="index"
-				class="guess-item"
-				@click="navToDetailPage(item.id)"
-			>
-				<view class="image-wrapper">
-					<image :src="item.img + '?x-oss-process=style/400px'" mode="aspectFill"></image>
-				</view>
-				<text class="title clamp">{{item.title}}</text>
-				<text class="price">￥{{isVip ? (item.vipPrice / 100 + ' [VIP]') : item.price / 100}}</text>
-			</view>
-		</view> -->
 	</view>
 </template>
 
 <script>
+	import currentCar from '@/components/current-car.vue';
 	export default {
+		components:{
+			currentCar
+		},
 		data() {
 			return {
 				uni,

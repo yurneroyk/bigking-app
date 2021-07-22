@@ -105,7 +105,6 @@
 			},
 			// 选择品牌
 			chooseEvent(data) {
-				console.log(data)
 				this.vehicle = this.select_path = []
 				this.select_path.computed = false
 				this.select_path.brand_name = data.data.name
@@ -116,7 +115,7 @@
 					url: url,
 					success: (res) => {
 						this.showRigth = true;
-						res.data.filter(item=>{
+						res.data.filter((item,index)=>{
 							var _index = _obj.findIndex(_item =>{
 								return _item.letter == item['BrandType'];
 							})

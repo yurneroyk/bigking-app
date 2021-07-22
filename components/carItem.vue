@@ -2,12 +2,11 @@
 	<view class="bar">
 		<image src="../static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
 		<view class="car-detail">
-			<text class="car-name">{{data.name}}</text>
+			<text v-if="data.name" class="car-name">{{data.name}}</text>
 			<text v-if="data.desc" class="car-desc">{{data.desc}}</text>
 		</view>
-		<view class="car-select" @click="remove">
-			<uni-icons type="trash" color="#fc0107"></uni-icons>
-			<text class="icon-text">删除</text>
+		<view  class="car-select" @click="selectItem">
+			<uni-icons type="checkbox-filled" :color="select===data.id?'#0f80ff':'#bbb'"></uni-icons>
 		</view>
 	</view>
 </template>
@@ -18,6 +17,10 @@
 		props:{
 			data:{
 				type:Object,
+			},
+			select:{
+				type:String,
+				default:'',
 			}
 		},
 		data() {
@@ -26,8 +29,8 @@
 			};
 		},
 		methods:{
-			remove(){
-				console.log(11)
+			selectItem(){
+				this.$emit('selectItem')
 			}
 		}
 	}
@@ -64,10 +67,8 @@
 	}
 	.car-select{
 		margin-left:auto;
-		font-size:$font-sm;
-		.icon-text{
-			color: $font-color-spec;
-			margin-right: 8upx;
+		.selected{
+			color:$font-base;
 		}
 	}
 }
