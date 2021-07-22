@@ -21,7 +21,7 @@
 				</view>
 			</view>
 			<button v-if="!loginType" class="confirm-btn" @click="chooseLoginType('wechat')" :disabled="logining">微信快速登录（推荐）</button>
-			<!-- <button v-if="!loginType" class="confirm-btn" @click="chooseLoginType('phone')" :disabled="logining">手机注册登录</button> -->
+			<button v-if="!loginType" class="confirm-btn" @click="chooseLoginType('phone')" :disabled="logining">手机注册登录</button>
 			<!-- #ifdef MP-WEIXIN -->
 			<button v-if="loginType === 'wechat'" class="confirm-btn" open-type="getUserInfo" @getuserinfo="miniWechatLogin"
 			 :disabled="logining">微信授权登录</button>

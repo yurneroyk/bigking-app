@@ -1,7 +1,7 @@
 <template>  
     <view class="container">  
 		<view class="user-section">
-			<image class="bg" src="/static/user-bg.jpg"></image>
+			<image class="bg" src="/static/bg/qlyx.jpeg"></image>
 			<view class="user-info-box">
 				<view class="portrait-box">
 					<image class="portrait" :src="userInfo.avatarUrl || '/static/missing-face.png'"></image>
@@ -84,8 +84,8 @@
 				<!-- <list-cell icon="icon-huifu" iconColor="#e07472" title="在线客服" :openType="'contact'"></list-cell> -->
 				<!-- #endif -->
 				<list-cell icon="icon-tuandui" iconColor="#EE82EE" title="个人资料" @eventClick="navTo('/pages/user/profile')"></list-cell>
-				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/product/favorite')"></list-cell>
-				<list-cell icon="icon-iconfontweixin" iconColor="#EEEE00" title="我的优惠券" @eventClick="navTo('/pages/coupon/list?type=user')"></list-cell>
+				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/bus/busList')"></list-cell>
+				<!-- <list-cell icon="icon-iconfontweixin" iconColor="#EEEE00" title="我的优惠券" @eventClick="navTo('/pages/coupon/list?type=user')"></list-cell> -->
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/list')"></list-cell>
 				<list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="关于" @eventClick="navTo('/pages/user/about')"></list-cell>
 				<list-cell icon="icon-zuoshang" iconColor="#e07472" title="退出登录" border="" @eventClick="logout()"></list-cell>
@@ -269,8 +269,8 @@
 			top: 0;
 			width: 100%;
 			height: 100%;
-			filter: blur(1px);
-			opacity: .7;
+			/* filter: blur(1px); */
+			/* opacity: .7; */
 		}
 	}
 	.user-info-box{
