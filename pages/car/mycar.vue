@@ -1,7 +1,7 @@
 <template>
 	<view class="main">
 		<view v-if="userInfo.carList.length" >
-			<view v-for="car in userInfo.carList" class="bar">
+			<view v-for="car in userInfo.carList" :key="car.id" class="bar">
 				<image src="@/static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
 				<view class="car-detail">
 					<text v-if="car.name" class="car-name">{{car.name}}</text>

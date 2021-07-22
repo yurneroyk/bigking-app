@@ -17,7 +17,7 @@
 			<scroll-view class="view-content" scroll-y>
 				<view v-if="userInfo.carList.length" class="share-list">
 					<carItem 
-						v-for="(item, index) in userInfo.carList" 
+						v-for="item in userInfo.carList" 
 						:key="item.id" 
 						:data="item"
 						:select="select"
