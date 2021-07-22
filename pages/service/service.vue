@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<list-cell class="header" icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#34dac5" title="全部车型" tips="更换" @eventClick="navToBusList('/pages/bus/busList')"></list-cell>
+		<currentCar></currentCar>
 		<view class="main">
 			<uni-list @change="change" v-for="(ele,index) in serviceList" :key="index" class="service">
 				<view class="ele-title">{{ele.title}}</view>
@@ -16,39 +16,31 @@
 						:note="item.suggest"
 						:title="item.title"
 					>
-						<view 
+						<service-item 
 							v-for="(good,index1) in item.goods" 
 							:key="index1" 
-							style="background-color: #fff; padding-left: 30upx;" 
+							style="background-color: #fff; padding-left: 30upx;"  
+							:good="good"
+							@check="checkItem"
 						>
-							<view class="good">
-								<view class="first-line">
-									<image src="../../static/baoyang.png" mode="aspectFit" class="good-img"></image>
-									<view class="good-detail">
-										<view class="name">
-											{{good.name}}
-											<uni-icons
-												:size="20" 
-												:color="good.checked?'#fa436a':'#bbb'"
-												type="checkbox-filled"
-												@click="check(good)"
-											/>
-										</view>
-										<view class="des">{{good.des}}</view>
-										<text v-if="good.note" >
-											<span class="note">{{good.note}}</span>
-										</text>
-									</view>
-								</view>
-								<view class="second-line">
-									<text class="left-second">机油更换工时</text>
-									<text class="right-second">$50</text>
-								</view>
-							</view>
-						</view>
+						</service-item>
 					</uni-collapse-item>
 				</uni-collapse>
 			</uni-list>
+		</view>
+		<view class="footer">
+			<view class="price-content">
+				<view class="first-line">
+					<text>合计:</text>
+					<text class="order-price">¥{{total}}</text>
+					<text class="other-price">(含{{workPrice}}元上门费)</text>
+				</view>
+				<view class="second-line">
+					<text class="origin-price">原价:{{originPrice}}</text>
+					<text >已优惠:{{coupon}}</text>
+				</view>
+			</view>
+			<text class="submit" @click="submit">提交订单</text>
 		</view>
 	</view>
 </template>
@@ -57,16 +49,21 @@
 	import {
 		mapState
 	} from 'vuex';
-	import listCell from '@/components/mix-list-cell';
+	import currentCar from '@/components/current-car.vue';
+	import serviceItem from '@/components/serviceItem.vue';
 	import uniIcons from '@/components/uni-icons/uni-icons.vue';
 	export default {
 		components: {
-			listCell
+			currentCar,
+			serviceItem,
 		},
 		data() {
 			return {
 				totalItems: 0, //总数量
-				total: 0, //总价格
+				total: 100, //总价格
+				workPrice: 50, // 上门费
+				originPrice: 150, // 原价
+				coupon: 50,
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				tabCurrentIndex: 0,
@@ -84,11 +81,13 @@
 										name:"美孚机油",
 										des:'美孚速霸矿物油 5w-304升',
 										note:'矿物质',
+										price:"60",
 										checked:true,
 									},
 									{   
 										name:"索菲玛机滤",
 										des:'索菲玛S3291R1',
+										price:"60",
 										checked:true,
 										
 									},
@@ -231,12 +230,14 @@
 			...mapState(['hasLogin'])
 		},
 		methods: {
+			checkItem(val){
+				console.log(val)
+			},
 			navToBusList(url){
 				uni.navigateTo({  
 					url
 				})
-			}, 
-			//请求数据
+			},
 			async loadData(){
 				const that = this
 				that.$api.request('cart', 'getCartList').then(res => {
@@ -399,8 +400,6 @@
 	
 }
 .main{
-	margin-top:80upx;
-	padding: 20upx 0;
 	border-radius: 20rpx;
 	.service{
 		.ele-title{
@@ -433,17 +432,23 @@
 				display: flex;
 				justify-content: space-between;
 				font-size: $font-base;
+				.first-right{
+					display: flex;
+					align-items: center;
+					.splite{
+						padding: 0 8upx;
+					}
+				}
 			}
 			.des{
-				margin: 8upx 0;
+				padding-bottom: 10upx;
 				color: $font-color-light;
 			}
 			.note{
 				color: #f5a623 ;
-				text-align: center;
-				border: .5px solid #f5a623;
+				font-size: $font-sm;
+				border: 1upx solid #f5a623;
 				border-radius: 2px;
-				padding: 1upx 4upx;
 			}
 			.checked{
 				color: $uni-color-primary;
@@ -459,84 +464,74 @@
 }
 
 /* 底部栏 */
-.action-section{
-	/* #ifdef H5 */
-	/* margin-bottom:100upx; */
-	/* #endif */
-	position:fixed;
-	left: 30upx;
-	bottom:30upx;
+.footer {
+	position: fixed;
+	left: 0;
+	bottom:0;
 	z-index: 95;
 	display: flex;
 	align-items: center;
-	width: 690upx;
-	height: 100upx;
-	padding: 0 30upx;
-	background: rgba(255,255,255,.9);
-	box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
-	border-radius: 16upx;
-	.checkbox{
-		height:52upx;
-		position:relative;
-		image{
-			width: 52upx;
-			height: 100%;
-			position:relative;
-			z-index: 5;
+	width: 100%;
+	height: 90upx;
+	justify-content: space-between;
+	font-size: 30upx;
+	background-color: #fff;
+	z-index: 95;
+	color: $font-color-base;
+	box-shadow: 0 -1px 5px rgba(0, 0, 0, .1);
+	.price-content {
+		padding-left: 30upx;
+		.first-line {
+			display: flex;
+			align-items: center;
+			font-size: 30upx;
+			height: 42upx;
+			line-height: 42upx;
+			text-align: left;
+			font-weight: 700;
+			.order-price {
+				color:#ff5151
+			}
+			.other-price{
+				font-size: 24upx;
+				height: 42upx;
+				line-height: 42upx;
+				color: #b8b8b8;
+				font-weight: 400;
+			}
 		}
-	}
-	.clear-btn{
-		position:absolute;
-		left: 26upx;
-		top: 0;
-		z-index: 4;
-		width: 0;
-		height: 52upx;
-		line-height: 52upx;
-		padding-left: 38upx;
-		font-size: $font-base;
-		color: #fff;
-		background: $font-color-disabled;
-		border-radius:0 50px 50px 0;
-		opacity: 0;
-		transition: .2s;
-		&.show{
-			opacity: 1;
-			width: 120upx;
-		}
-	}
-	.total-box{
-		flex: 1;
-		display:flex;
-		flex-direction: column;
-		text-align:right;
-		padding-right: 40upx;
-		.price{
-			font-size: $font-lg;
-			color: $font-color-dark;
-		}
-		.coupon{
-			font-size: $font-sm;
-			color: $font-color-light;
-			text{
-				color: $font-color-dark;
+		.second-line{
+			display: flex;
+			align-items: center;
+			font-size: 24upx;
+			color: $font-color-disabled;
+			line-height: 34upx;
+			height: 34upx;
+			text-align: left;
+			.origin-price{
+				margin-right: 6upx;
 			}
 		}
 	}
-	.confirm-btn{
-		padding: 0 38upx;
-		margin: 0;
-		border-radius: 100px;
-		height: 76upx;
-		line-height: 76upx;
-		font-size: $font-base + 2upx;
-		background: $uni-color-primary;
-		box-shadow: 1px 2px 5px rgba(217, 60, 93, 0.72)
+	.price-tip {
+		color: $font-color-spec;
+		margin-left: 8upx;
 	}
-}
-/* 复选框选中状态 */
-.action-section .checkbox.checked,
-.cart-item .checkbox.checked{
-	color: $uni-color-primary;
+
+	.price {
+		font-size: 36upx;
+		color: $base-color;
+	}
+
+	.submit {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 280upx;
+		height: 100%;
+		color: #fff;
+		font-size: 32upx;
+		background-color: $font-color-spec;
+	}
 }
 </style>

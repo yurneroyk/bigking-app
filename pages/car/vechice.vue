@@ -50,7 +50,6 @@
 			},
 			choose(data,name,next){
 				if (!next){
-					console.log(name)
 					uni.$emit('vechice_computed',name)
 					return uni.navigateBack({})
 				}

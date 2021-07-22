@@ -181,7 +181,7 @@
 				}
 			}
         },{
-            "path" : "pages/bus/busList",
+            "path" : "pages/car/carList",
             "style" : {
 				"navigationBarTitleText": "车型选择",
 				"app-plus": {
@@ -189,7 +189,7 @@
 				}
 			}
         },{
-            "path" : "pages/bus/vechice",
+            "path" : "pages/car/vechice",
             "style" : {
 				"navigationBarTitleText": "车型设置",
 				"app-plus": {
@@ -197,6 +197,16 @@
 				}
 			}
         },{
+            "path" : "pages/car/mycar",
+            "style" : {
+				"navigationBarTitleText": "爱车列表",
+				"app-plus": {
+					"bounce": "none"
+				}
+			}
+        },{
+		    "path" : "pages/car/carDetail"
+		},{
             "path" : "pages/service/service",
             "style" : {
 				"navigationBarTitleText": "服务选择",
@@ -205,6 +215,7 @@
 				}
 			}
         }
+       
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
