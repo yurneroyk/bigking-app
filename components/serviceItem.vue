@@ -44,7 +44,7 @@
 		},
 		methods:{
 			selectItem(val){
-				this.$emit('check',val)
+				this.$emit('check')
 			}
 		}
 	}
@@ -52,9 +52,9 @@
 
 <style lang="scss">
 .good{
-	padding: 24upx;
 	font-size: $font-base;
 	color: $font-color-dark;
+	background-color: #fff;
 	.first-line{
 		display: flex;
 		align-items: center;

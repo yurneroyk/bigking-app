@@ -207,7 +207,7 @@
 		justify-content: space-between;
 		padding: 24upx;
 		.right{
-			color: $font-color-spec;
+			color: $uni-color-primary;
 		}
 	}
 	.share-list{
@@ -232,7 +232,7 @@
 			font-size: $font-sm+2upx;
 			color: $font-color-disabled;
 			.navigator{
-				color: #0f80ff;
+				color: $uni-color-primary;
 				margin-left: 16upx;
 			}
 		}

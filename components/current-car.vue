@@ -3,8 +3,8 @@
 		<view class="bar">
 			<image src="../static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
 			<view class="car-detail">
-				<text class="car-name">{{carName}}</text>
-				<text class="car-desc">{{carDesc}}</text>
+				<text class="car-name">{{car.name}}</text>
+				<text class="car-desc">{{car.des}}</text>
 			</view>
 			<view class="car-select" @click="update">
 				<text class="icon-text">更换</text>
@@ -40,8 +40,10 @@
 		},
 		data() {
 			return {
-				carName:"奥迪(一汽)A4",
-				carDesc:"2006年款 2.4L 手动档 三厢",
+				car:{
+					name:"奥迪(一汽)A4",
+					des:"2006年款 2.4L 手动档 三厢",
+				},
 				mycars:[]
 			};
 		},
@@ -88,7 +90,7 @@
 		margin-left:auto;
 		font-size:$font-base ;
 		.icon-text{
-			color: $font-color-spec;
+			color: $uni-color-primary;
 			margin-right: 8upx;
 		}
 	}

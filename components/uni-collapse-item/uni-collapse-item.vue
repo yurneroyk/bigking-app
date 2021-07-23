@@ -7,14 +7,15 @@
 			    v-if="icon"
 				:size="20"
 				class="uni-collapse-check"
-				:color="isOpen?'#fa436a':'#bbb'"
+				:color="isOpen?'#4399fc':'#bbb'"
 				type="checkbox-filled"
 			/>
 			
 			<view class="uni-collapse-cell__title-text">
 				<view class="name">
 					{{ title }}
-					<uni-badge :text="bage" class="detail" type="primary" />
+					<!-- <uni-badge :text="bage" class="detail" type="primary" /> -->
+					<uni-tag :text="tag" size="small" type="primary" class="detail" ></uni-tag>
 				</view>
 				<view class="suggest">{{ note }}</view>
 			</view>
@@ -48,20 +49,23 @@
 		props: {
 			icon: {
 				type: String,
-				default: ''
+				default: 'checkbox-filled'
 			},
 			title: {
 				// 列表标题
 				type: String,
 				default: ''
 			},
-			
 			bage:{
 				//标签
 				type: String,
 				default: '详情'
 			},
-			
+			tag:{
+				//标签
+				type: String,
+				default: '详情'
+			},
 			note:{
 				// 列表二级标题
 				type: String,
@@ -160,12 +164,12 @@
 
 	.uni-collapse-cell--disabled {
 		background-color: $uni-bg-color-hover;
-		// opacity: 0.3;
+		opacity: 0.3;
 	}
 
 
 	.uni-collapse-cell--hide {
-		height: 48px;
+		height: 61px;
 	}
 
 	.uni-collapse-cell--animation {
@@ -183,7 +187,7 @@
 		width: 100%;
 		box-sizing: border-box;
 		/* #endif */
-		height: 48px;
+		height: 61px;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
@@ -224,8 +228,9 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		.name{
+			display: flex;
 			.detail{
-				margin-left: 20upx;
+				margin-left: 40upx;
 			}
 		}
 		.suggest{

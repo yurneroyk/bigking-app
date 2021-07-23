@@ -2,26 +2,23 @@
 	<view>
 		<currentCar></currentCar>
 		<view class="main">
-			<uni-list @change="change" v-for="(ele,index) in serviceList" :key="index" class="service">
-				<view class="ele-title">{{ele.title}}</view>
+			<uni-list @change="change" v-for="category in categoryList" :key="category.id" class="service">
+				<view class="ele-title">{{category.title}}</view>
 				<uni-collapse 
 					@change="allCheck"
 				>
 					<uni-collapse-item
-					    v-for="item in ele.List"
-						:checked = "item.id == tid"
-						icon='checkbox'
-					    :key="item.id"
-					    :name="item.id"
-						:note="item.suggest"
-						:title="item.title"
+					    v-for="service in category.serviceList"
+					    :key="service.id"
+					    :name="service.id"
+						:note="service.description"
+						:title="service.title"
 					>
 						<service-item 
-							v-for="(good,index1) in item.goods" 
-							:key="index1" 
-							style="background-color: #fff; padding-left: 30upx;"  
-							:good="good"
-							@check="checkItem"
+							v-for="product in service.productList" 
+							:key="product.id" 
+							:good="product"
+							@check="checkItem(product,service,category)"
 						>
 						</service-item>
 					</uni-collapse-item>
@@ -67,141 +64,109 @@
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				tabCurrentIndex: 0,
-				serviceList:[
-					{
+				categoryList:[
+					{	
+						id:'0',
 						title:'推荐保养项目',
-						List:[
+						original_price:'',
+						serviceList:[
 							{
-								id:'0',
+								id:'0-0',
 								title:'小保养服务',
-								suggest:'建议车内出现异味时立刻清洗',
-								goods:[
+								description:'建议车内出现异味时立刻清洗',
+								productList:[
 									{	
-										
+										id:"0-0-0",
 										name:"美孚机油",
 										des:'美孚速霸矿物油 5w-304升',
 										note:'矿物质',
 										price:"60",
-										checked:true,
-									},
-									{   
+										
+									}, 
+									{    
+										id:"0-0-1",
 										name:"索菲玛机滤",
-										des:'索菲玛S3291R1',
+										description:'索菲玛S3291R1',
 										price:"60",
-										checked:true,
 										
 									},
 									{	
+										id:"0-0-2",
 										name:"索菲机滤",
-										des:'索菲玛S3291R1s',
-										checked:true,
+										description:'索菲玛S3291R1s',
 									},
 								]
 							},{   
-								id:'1',
+								id:'0-1',
 								title:'大保养服务',
-								goods:[
+								description:'建议车内出现异味时立刻清洗',
+								productList:[
 									{	
-										
+										id:"0-1-0",
 										name:"美孚机油",
-										des:'美孚速霸矿物油 5w-304升',
-										note:'矿物质',
-										checked:true,
+										description:'美孚速霸矿物油 5w-304升',
 									},
 									{   
+										id:"0-1-1",
 										name:"索菲玛机滤",
-										des:'索菲玛S3291R1',
-										checked:true,
-										
+										description:'索菲玛S3291R1',
 									},
 									{	
+										id: "0-1-2",
 										name:"索菲机滤",
-										des:'索菲玛S3291R1s',
-										checked:true,
+										description:'索菲玛S3291R1s',
 									},
 								]
-							},{   
-								id:'2',
-								title:'可视化空调清洗',
-								goods:[
-									{	
-										
-										name:"美孚机油",
-										des:'美孚速霸矿物油 5w-304升',
-										note:'矿物质',
-										checked:true,
-									},
-									{   
-										name:"索菲玛机滤",
-										des:'索菲玛S3291R1',
-										checked:true,
-										
-									},
-									{	
-										name:"索菲机滤",
-										des:'索菲玛S3291R1s',
-										checked:true,
-									},
-								]
-							},{   
-								id:'3',
-								title:'节气门清洗',
-								checked:false,
-								goods:[
-									{	
-										
-										name:"美孚机油",
-										des:'美孚速霸矿物油 5w-304升',
-										note:'矿物质',
-										checked:true,
-									},
-									{   
-										name:"索菲玛机滤",
-										des:'索菲玛S3291R1',
-										checked:true,
-										
-									},
-									{	
-										name:"索菲机滤",
-										des:'索菲玛S3291R1s',
-										checked:true,
-									},
-								]
-							},
-							
+							}
 						]
 					},
-					{
+					{   
+						id:'1',
 						title:'自主保养项目',
-						List:[
+						serviceList:[
 							{
-								id:'1',
+								id:'1-0',
 								title:'服务1',
 								checked:false,
-								goods:[
-									{name:"1"},
-									{name:"2"},
-									{name:"3"}
-								]
-							},{   
-								id:'2',
-								title:'服务1',
-								checked:false,
-								goods:[
-									{name:"1"},
-									{name:"2"},
-									{name:"3"}
-								]
-							},{   
-								id:'3',
-								title:'服务1',
-								checked:true,
-								goods:[
-									{name:"1"},
-									{name:"2"},
-									{name:"3"}
+								productList:[
+									{	
+										id:"1-0-0",
+										name:"美孚机油",
+										description:'美孚速霸矿物油 5w-304升',
+									},
+									{   
+										id:"1-0-1",
+										name:"索菲玛机滤",
+										description:'索菲玛S3291R1',
+									},
+									{	
+										id: "1-0-2",
+										name:"索菲机滤",
+										description:'索菲玛S3291R1s',
+									},
 								]
 							},
+							{
+								id:'1-1',
+								title:'服务2',
+								productList:[
+									{	
+										id:"1-1-0",
+										name:"美孚机油",
+										description:'美孚速霸矿物油 5w-304升',
+									},
+									{   
+										id:"1-1-1",
+										name:"索菲玛机滤",
+										description:'索菲玛S3291R1',
+									},
+									{	
+										id: "1-1-2",
+										name:"索菲机滤",
+										description:'索菲玛S3291R1s',
+									},
+								]
+							}
 						]
 					},
 				],
@@ -230,8 +195,9 @@
 			...mapState(['hasLogin'])
 		},
 		methods: {
-			checkItem(val){
-				console.log(val)
+			checkItem(val,val2,val3){
+				console.log(val,val2,val3);
+				val.checked = !val.checked
 			},
 			navToBusList(url){
 				uni.navigateTo({  
@@ -282,20 +248,20 @@
 				val.checked = !val.checked
 			},
 			 //选中状态处理
-			// check(type, index){
-			// 	if(type === 'item'){
-			// 		this.cartList[index].checked = !this.cartList[index].checked;
-			// 	}else{
-			// 		const checked = !this.allChecked
-			// 		const list = this.cartList;
-			// 		list.forEach(item=>{
-			// 			item.checked = checked;
-			// 		})
-			// 		this.allChecked = checked;
-			// 	}
-			// 	this.calcTotal(type);
-			// },
-			//数量
+			check(type, index){
+				if(type === 'item'){
+					this.cartList[index].checked = !this.cartList[index].checked;
+				}else{
+					const checked = !this.allChecked
+					const list = this.cartList;
+					list.forEach(item=>{
+						item.checked = checked;
+					})
+					this.allChecked = checked;
+				}
+				this.calcTotal(type);
+			},
+			// 数量
 			numberChange(data){
 				const that = this
 				that.$api.request('cart','updateCartItemNum', {

@@ -14,54 +14,72 @@
 				</view>
 			</view>
 		</view>
-		<view class="swiper-box">
-			<!-- 空白页 -->
-			<view v-if="!hasLogin || empty===true" class="empty">
-				<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
-				<view v-if="hasLogin" class="empty-tips">
-					空空如也
-					<navigator class="navigator" v-if="hasLogin" url="/pages/index/index" open-type="switchTab">随便逛逛></navigator>
-				</view>
-				<view v-else class="empty-tips">
-					空空如也
-					<view class="navigator" @click="navToLogin">去登陆></view>
-				</view>
+		<!-- 空白页 -->
+		<view v-if="!hasLogin || empty===true" class="empty">
+			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
+			<view v-if="hasLogin" class="empty-tips">
+				空空如也
+				<navigator class="navigator" v-if="hasLogin" url="/pages/index/index" open-type="switchTab">随便逛逛></navigator>
 			</view>
-			<view v-else  class="cart-list">
-				<view
-					class="cart-item" 
-					v-for="(item, index) in cartList" :key="item.id"
-					:class="{'b-b': index!==cartList.length-1}"
-				>
-					<view class="image-wrapper">
-						<image :src="(item.skuImg?item.skuImg:item.spuImg) + '?x-oss-process=style/200px'" 
-							:class="loadedItemIds.has(item.id) ? 'loaded': ''"
-							mode="aspectFill" 
-							lazy-load 
-							@load="onImageLoad(item)" 
-							@error="onImageError('cartList', index)"
-						></image>
-						<view 
-							class="yticon icon-xuanzhong2 checkbox"
-							:class="{checked: item.checked}"
-							@click="check('item', index)"
-						></view>
+			<view v-else class="empty-tips">
+				空空如也
+				<view class="navigator" @click="navToLogin">去登陆></view>
+			</view>
+		</view>
+		<view>
+			<view class="cart-list">
+				<block  v-for="(order,index) in orderList" :key="order.id" >
+					<view class="cart-item" >
+						<view class="bar">
+							<image src="@/static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
+							<view class="car-detail">
+								<text class="car-name">{{userInfo.car.name}}</text>
+								<text class="car-desc">{{userInfo.car.des}}</text>
+							</view>
+						</view>
+						<view class="main">
+							<view class="lable">
+								<text>2021-07-26 (周一)</text>
+								<text class="price">￥{{order.totalPrice}}</text>
+							</view>
+							<view class="lable">
+								<text>程鹏</text>
+								<text class="tag" :class="{success:order.status=='1'}">{{order.status=='0'? "订单已取消":"订单已创建"}}</text>
+							</view>
+							<view class="lable">
+								<text>上海市黄浦区上海市政府-正门</text>
+							</view>
+							<view class="lable">
+								<text>机油、机滤、空调滤、空气滤、上门服务费</text>
+								<text class="tag" :class="{success:order.status=='1'}">{{order.status=='0'? "重新下单":""}}</text>
+							</view>
+						</view>
+						<view class="button-box" :class="{'b-b': index==orderList.length-1}">
+							<text class="button">重新下单</text>
+						</view>
 					</view>
-					<view class="item-right">
-						<text class="clamp title">{{item.title}}</text>
-						<text class="attr">{{item.skuTitle}} <text style="color: #FF570A;" v-show="item.num > item.stock">{{ ' (库存不足 剩余:' + item.stock + ')' }}</text></text>
-						<text class="price"><text v-if="item.originalPrice > item.price" style="text-decoration:line-through">¥{{isVip ? (item.vipPrice / 100 + '[VIP]') : item.originalPrice / 100.0}}</text> ¥{{item.price / 100.0}}</text>
-						<uni-number-box 
-							class="step"
-							:min="1" 
-							:value="item.num"
-							:isMin="item.num===1"
-							:index="index"
-							@eventChange="numberChange"
-						></uni-number-box>
+				</block>
+			</view>
+			<view class="action-section">
+				<view class="checkbox">
+					<image 
+						:src="allChecked?'/static/selected.png':'/static/select.png'" 
+						mode="aspectFit"
+						@click="check('all')"
+					></image>
+					<view class="clear-btn" :class="{show: allChecked}" @click="clearCart">
+						清空
 					</view>
-					<text class="del-btn yticon icon-fork" @click="deleteCartItem(index)"></text>
 				</view>
+				<view class="total-box">
+					<text class="price">¥{{total}}</text>
+					<text class="coupon">
+						已优惠
+						<text>74.35</text>
+						元
+					</text>
+				</view>
+				<button type="primary" class="no-border confirm-btn" @click="createOrder">去结算</button>
 			</view>
 		</view>	
 	</view>
@@ -71,12 +89,10 @@
 	import {
 		mapState
 	} from 'vuex';
-	import uniNumberBox from '@/components/uni-number-box.vue';
 	import currentCar from '@/components/current-car.vue';
 	export default {
 		components: {
 			currentCar,
-			uniNumberBox,
 		},
 		data() {
 			return {
@@ -99,12 +115,30 @@
 						text: '已取消',
 					}
 				],
-				cartList: [
+				orderList: [
 					{   
 						id:'1',
-						title:'1',
-						checked:false,
-						skuTitle:'一',
+						orderNo:'1',
+						status:"1",
+						totalPrice:'998',
+						totalOriginalPrice:"",
+						takeWay:''
+					},
+					{
+						id:'2',
+						orderNo:'1',
+						status:"1",
+						totalPrice:'998',
+						totalOriginalPrice:"",
+						takeWay:''
+					},
+					{
+						id:'1',
+						orderNo:'1',
+						status:"1",
+						totalPrice:'998',
+						totalOriginalPrice:"",
+						takeWay:''
 					}
 				],
 				loadedItemIds: new Set()
@@ -126,7 +160,7 @@
 			}
 		},
 		computed:{
-			...mapState(['hasLogin'])
+			...mapState(['hasLogin','userInfo'])
 		},
 		methods: {
 			navToBusList(url){
@@ -276,19 +310,19 @@
 
 <style lang='scss'>
 .content {
-	position: fixed;
 	left: 0;
 	top: var(--window-top);
 	height: 100%;
 	width: 100%;
-	background: #fff;
-	
+	padding-bottom: 150upx;
+	background: #F5F5F5;
 }
 .nav{
 	height:188upx;
 	.navbar {
 		display: flex;
 		height: 80upx;
+		background: #fff;
 		box-shadow: 0 2upx 10upx rgba(0, 0, 0, .06);
 		.nav-item {
 			flex: 1;
@@ -300,7 +334,7 @@
 			color: $font-color-dark;
 			position: relative;
 			&.current {
-				color: #0f80ff;
+				color: $uni-color-primary;
 				&:after {
 					content: '';
 					position: absolute;
@@ -309,16 +343,15 @@
 					transform: translateX(-50%);
 					width: 120upx;
 					height: 0;
-					border-bottom: 4upx solid #0f80ff;
+					border-bottom: 4upx solid #12227A;
 				}
 			}
 		}
 	}
 }
 .swiper-box{
-	height: calc(100% - 188upx);
-	display:flex;
-	align-items:center;
+	height: calc(100% - 288upx);
+	width: 100%;
 }
 /* 空白页 */
 .empty{
@@ -326,8 +359,6 @@
 	align-items:center;
 	justify-content: center;
 	flex-direction: column;
-	position: relative;
-	padding-bottom: 180upx;
 	height: 100%;
 	width: 100%;
 	background: #fff;
@@ -347,63 +378,156 @@
 	}
 }
 /* 购物车列表项 */
-.cart-list{
-	.cart-item{
-		display:flex;
-		/* position:relative; */
-		padding:30upx 40upx;
-		.image-wrapper{
-			width: 230upx;
-			height: 230upx;
-			flex-shrink: 0;
-			position:relative;
-			image{
-				border-radius:8upx;
-			}
+.cart-item{
+	display:flex;
+	flex-direction: column;
+	position:relative;
+	background: #fff;
+	.bar {
+		padding: 24upx;
+		display: flex;
+		background-color: #fff;
+		align-items: center;
+		.car-image{
+			width:60upx;
+			height:60upx;
+			margin-right: 16upx;
 		}
-		.checkbox{
-			position:absolute;
-			left:-16upx;
-			top: -16upx;
-			z-index: 8;
-			font-size: 44upx;
-			line-height: 1;
-			padding: 4upx;
-			color: $font-color-disabled;
-			background:#fff;
-			border-radius: 50px;
-		}
-		.item-right{
-			display:flex;
+		.car-detail{
+			display: flex;
 			flex-direction: column;
-			flex: 1;
-			overflow: hidden;
-			position:relative;
-			padding-left: 30upx;
-			.title,.price{
-				font-size:$font-base + 2upx;
-				color: $font-color-dark;
-				height: 40upx;
-				line-height: 40upx;
+			.car-name{
+				font-size: $font-sm;
+				height: 32upx;
+				line-height: 32upx;
+				text-align: left;
+				
 			}
-			.attr{
-				font-size: $font-sm + 2upx;
-				color: $font-color-light;
-				height: 50upx;
-				line-height: 50upx;
-			}
-			.price{
-				height: 50upx;
-				line-height:50upx;
+			.car-desc{
+				font-size: $font-xs;
+				height: 28upx;
+				line-height: 28upx;
+				text-align: left;
 			}
 		}
-		.del-btn{
-			padding:4upx 10upx;
-			font-size:34upx; 
-			height: 50upx;
-			color: $font-color-light;
+	}
+	.main{
+		border-top:0.5upx solid $font-color-disabled;
+		padding: 24upx;
+	}
+	.price{
+		color: #ff5151;
+		font-weight: bold;
+		font-family: monospace;
+	}
+	.lable{
+		display: flex;
+		align-items: center;
+		padding: 10rpx 0 0 10upx;
+		font-size: $font-base;
+		color: $font-color-disabled;
+		justify-content: space-between;
+	}
+	.tag{
+		color: #fff;
+		padding: 0 10upx;
+		background-color: #C1C1C1;
+	}
+	.success{
+		background-color: $uni-color-success
+	}
+	.button-box{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 90upx;
+		background-color:$border-color-light;
+		border: 1upx solid $border-color-dark;
+		.button{
+			color: $uni-color-primary;
 		}
 	}
 }	
 /* 底部栏 */
+/* 底部栏 */
+.action-section{
+	/* #ifdef H5 */
+	margin-bottom:100upx;
+	/* #endif */
+	position:fixed;
+	left: 30upx;
+	bottom:30upx;
+	z-index: 95;
+	display: flex;
+	align-items: center;
+	width: 690upx;
+	height: 100upx;
+	padding: 0 30upx;
+	background: rgba(255,255,255,.9);
+	box-shadow: 0 0 20upx 0 rgba(0,0,0,.5);
+	border-radius: 16upx;
+	.checkbox{
+		height:52upx;
+		position:relative;
+		image{
+			width: 52upx;
+			height: 100%;
+			position:relative;
+			z-index: 5;
+		}
+	}
+	.clear-btn{
+		position:absolute;
+		left: 26upx;
+		top: 0;
+		z-index: 4;
+		width: 0;
+		height: 52upx;
+		line-height: 52upx;
+		padding-left: 38upx;
+		font-size: $font-base;
+		color: #fff;
+		background: $font-color-disabled;
+		border-radius:0 50px 50px 0;
+		opacity: 0;
+		transition: .2s;
+		&.show{
+			opacity: 1;
+			width: 120upx;
+		}
+	}
+	.total-box{
+		flex: 1;
+		display:flex;
+		flex-direction: column;
+		text-align:right;
+		padding-right: 40upx;
+		.price{
+			font-size: $font-lg;
+			color: $font-color-dark;
+		}
+		.coupon{
+			font-size: $font-sm;
+			color: $font-color-light;
+			text{
+				color: $font-color-dark;
+			}
+		}
+	}
+	.confirm-btn{
+		padding: 0 38upx;
+		margin: 0;
+		border-radius: 100px;
+		height: 76upx;
+		line-height: 76upx;
+		font-size: $font-base + 2upx;
+		background: $uni-color-primary;
+		box-shadow: 1px 2px 5px rgba(0, 0, 93, 0.72)
+	}
+}
+/* 复选框选中状态 */
+.action-section .checkbox.checked,
+.cart-item .checkbox.checked{
+	color: $uni-color-primary;
+}
 </style>

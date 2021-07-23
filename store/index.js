@@ -9,7 +9,10 @@ const store = new Vuex.Store({
 	state: {
 		hasLogin: false,
 		userInfo: {
-			car:{},
+			car:{
+				name:"奥迪(一汽)A4",
+				des:"2006年款 2.4L 手动档 三厢",
+			},
 			carList:[
 				{
 					id:'0',
