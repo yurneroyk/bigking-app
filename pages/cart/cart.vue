@@ -26,7 +26,7 @@
 				<view class="navigator" @click="navToLogin">去登陆></view>
 			</view>
 		</view>
-		<view>
+		<view v-else >
 			<view class="cart-list">
 				<block  v-for="(order,index) in orderList" :key="order.id" >
 					<view class="cart-item" >
@@ -312,7 +312,7 @@
 .content {
 	left: 0;
 	top: var(--window-top);
-	height: 100%;
+	height: calc(100vh - 100rpx);
 	width: 100%;
 	padding-bottom: 150upx;
 	background: #F5F5F5;
@@ -361,7 +361,6 @@
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	background: #fff;
 	image{
 		width: 240upx;
 		height: 160upx;
