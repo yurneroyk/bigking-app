@@ -197,7 +197,7 @@
 				}
 			}
         },{
-            "path" : "pages/car/mycar",
+            "path" : "pages/car/myCar",
             "style" : {
 				"navigationBarTitleText": "爱车列表",
 				"app-plus": {
@@ -205,8 +205,6 @@
 				}
 			}
         },{
-		    "path" : "pages/car/carDetail"
-		},{
             "path" : "pages/service/service",
             "style" : {
 				"navigationBarTitleText": "服务选择",
@@ -216,6 +214,17 @@
 			}
         }
        
+        ,{
+            "path" : "pages/cart/List",
+            "style" :                                                                                    
+            {	
+				"navigationBarTitleText": "我的订单",
+                "app-plus": {
+                	"bounce": "none"
+                }
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -235,7 +244,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/cart/cart",
+				"pagePath": "pages/cart/List",
 				"iconPath": "static/icon/order.png",
 				"selectedIconPath": "static/icon/order-current.png",
 				"text": "订单"

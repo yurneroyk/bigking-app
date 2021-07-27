@@ -10,7 +10,7 @@
 				transform: transform
 			}]"
 		>   
-			<view class="share-header" @click="toMyCar">
+			<view class="share-header" @click="navTo('/pages/car/myCar')">
 			  <text>我的爱车</text>
 			  <text class="right">编辑</text>
 			</view>
@@ -28,12 +28,11 @@
 					<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
 					<view class="empty-tips">
 						空空如也
-					<view class="navigator" @click="toMyCarList">去添加></view>	
+					<view class="navigator" @click="navTo('/pages/car/carList')">去添加></view>	
 					</view>
-					
 				</view>
 			</scroll-view>
-			<button v-if="showButton" class="bottom b-t" @click="toMyCarList">其他车型</button>
+			<button v-if="showButton" class="bottom b-t" @click="navTo('/pages/car/carList')">其他车型</button>
 		</view>
 	</view>
 </template>
@@ -91,25 +90,27 @@
 			this.transform = this.config.transform;
 		},
 		methods:{
-			toMyCar(){
-				uni.navigateTo({
-					url:'/pages/car/mycar'
-				})
-			},
-			toMyCarList(){
+			navTo(url){
 				setTimeout(()=>{
 					this.show = false;
-					uni.navigateTo({
-						url:'/pages/car/carList'
+					// if(!this.hasLogin){
+					// 	url = '/pages/public/login';
+					// }
+					uni.navigateTo({  
+						url
 					})
 					this.hasTabbar && uni.showTabBar();
-				}, 100)
-			},
+				}, 100)  
+			}, 
 			change(item){
 				if(this.select === item.id){
 					this.select=''
 				}else{
 					this.select = item.id
+					setTimeout(()=>{
+						this.show = false;
+						this.hasTabbar && uni.showTabBar();
+					}, 100)
 				}
 			},
 			toggleMask(){
@@ -170,7 +171,7 @@
 		justify-content: center;
 		align-items: flex-end;
 		z-index: 998;
-		transition: .3s;
+		transition: .6s;
 		.bottom{
 			position:absolute;
 			left: 0;
