@@ -3,10 +3,10 @@
 		<image src="../static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
 		<view class="car-detail">
 			<text v-if="data.name" class="car-name">{{data.name}}</text>
-			<text v-if="data.desc" class="car-desc">{{data.desc}}</text>
+			<text v-if="data.des" class="car-desc">{{data.des}}</text>
 		</view>
 		<view  class="car-select" @click="selectItem">
-			<uni-icons type="checkbox-filled" :color="select===data.id?'#0f80ff':'#bbb'"></uni-icons>
+			<uni-icons size="20" type="checkbox-filled" :color="select===data.id?'#0f80ff':'#bbb'"></uni-icons>
 		</view>
 	</view>
 </template>
@@ -32,6 +32,9 @@
 			selectItem(){
 				this.$emit('selectItem')
 			}
+		},
+		mounted() {
+			console.log(this.data)
 		}
 	}
 </script>
@@ -59,7 +62,7 @@
 			
 		}
 		.car-desc{
-			font-size: $font-base;
+			font-size: $font-xs;
 			height: 28upx;
 			line-height: 28upx;
 			text-align: left;

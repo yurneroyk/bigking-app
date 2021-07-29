@@ -149,7 +149,7 @@
 		flex-direction: column;
 		border-color: $uni-border-color;
 		border-bottom-width: 1px;
-		border-bottom-style: solid;
+		// border-bottom-style: solid;
 	}
 	.uni-collapse-check {
 		margin-right:10upx 

@@ -58,7 +58,7 @@
 		<view  class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
-				<text class="tit">员工推荐</text>
+				<text class="tit" @click="navToService">员工推荐</text>
 				<text class="tit2">Shop Window</text>
 			</view>
 		</view>
@@ -121,6 +121,7 @@
 			};
 		},
 		onShow() {
+			console.log(111)
 			this.isVip = this.$api.isVip()
 		},
 		onLoad(options) {
@@ -221,7 +222,7 @@
 			},
 			navToService(){
 				uni.navigateTo({
-					url: `/pages/service/service`
+					url: `/pages/order/List`
 				})
 			},
 			// 橱窗推荐跳转
@@ -242,7 +243,7 @@
 					url = '/pages/product/list?tid=' + unionValue
 				} else if (unionType === 3) {
 					// url = '/pages/service/service?tid=' + unionValue
-					url = '/pages/service/service?tid=2'
+					url = '/pages/order/List?tid=2'
 				} else if (unionType === 5) {
 					url = '/pages/staff/detail?id=' + unionValue
 				}else if (unionType === 4) {

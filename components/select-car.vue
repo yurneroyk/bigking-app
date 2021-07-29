@@ -111,6 +111,7 @@
 						this.show = false;
 						this.hasTabbar && uni.showTabBar();
 					}, 100)
+					this.userInfo.car = item
 				}
 			},
 			toggleMask(){

@@ -11,7 +11,7 @@
 				// 是否开启手风琴效果
 				type: [Boolean, String],
 				default: false
-			}
+			},
 		},
 		data() {
 			return {}
@@ -32,7 +32,7 @@
 						activeItem.push(vm.nameSync)
 					}
 				})
-				this.$emit('change', activeItem)
+				this.$emit('change',activeItem)
 			}
 		}
 	}

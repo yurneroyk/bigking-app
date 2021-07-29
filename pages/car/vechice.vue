@@ -12,6 +12,7 @@
 </template>
 
 <script>
+	import { mapState } from 'vuex';
 	import uniList from '@/components/uni-list/uni-list.vue'
 	import uniListItem from '@/components/uni-list-item/uni-list-item.vue'
 	export default {
@@ -26,8 +27,12 @@
 				vehicle_select:[]
 			}
 		},
+		
 		created(){
 			this.vehicle = uni.getStorageSync('vehice_storage')
+		},
+		computed:{
+			...mapState(['userInfo'])
 		},
 		mounted(){
 			this.vehicle = this.is_next(this.vehicle)
@@ -46,11 +51,12 @@
 							})
 						})
 				});
-				return _tmp		
+				return _tmp	
 			},
 			choose(data,name,next){
 				if (!next){
 					uni.$emit('vechice_computed',name)
+					this.userInfo.car.des = name
 					return uni.navigateBack({})
 				}
 				if(this.vehicle_select_title == '请选择排量'){

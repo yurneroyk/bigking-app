@@ -1,25 +1,22 @@
 <template>
 	<view class="good">
 		<view class="first-line">
-			<image src="@/static/baoyang.png" mode="aspectFit" class="good-img"></image>
+			<image :src="prod.img" mode="aspectFit" class="good-img"></image>
 			<view class="good-detail">
 				<view class="name">
-					{{good.name}}
+					{{prod.title}}
 					<view class="first-right">
-					  <text>¥{{ good.price|| 50 }}</text>
+					  <text>¥{{ prod.price|| 50 }}</text>
 					  <view class="splite">|</view>
 					  <uni-icons
 					  	:size="20" 
-					  	:color="good.checked?'#fa436a':'#bbb'"
 					  	type="checkbox-filled"
-					  	@click="selectItem(good)"
+						:color="prod.checked?'#4399fc':'#bbb'"
+					  	@click="selectItem(prod)"
 					  />
 					</view>
 				</view>
-				<view class="des">{{good.des}}</view>
-				<text  >
-					<span v-if="good.note" class="note">{{good.note}}</span>
-				</text>
+				<view class="des">{{prod.weight}}升</view>
 			</view>
 		</view>
 		<view class="second-line">
@@ -33,18 +30,23 @@
 	export default {
 		name:"serviceItem",
 		props:{
-			good:{
+			prod:{
 				type:Object
+			}
+		},
+		watch:{
+			prod(val){
+				console.log(val)
 			}
 		},
 		data() {
 			return {
-				
+				item:{}
 			};
 		},
 		methods:{
 			selectItem(val){
-				this.$emit('check')
+				this.$emit('check',val)
 			}
 		}
 	}
@@ -52,6 +54,7 @@
 
 <style lang="scss">
 .good{
+	padding: 24upx;
 	font-size: $font-base;
 	color: $font-color-dark;
 	background-color: #fff;
@@ -59,8 +62,8 @@
 		display: flex;
 		align-items: center;
 		.good-img{
-		  width: 52px;
-		  height: 52px;
+		  width: 90rpx;
+		  height: 90rpx;
 		}
 		.good-detail{
 			width: 100%;

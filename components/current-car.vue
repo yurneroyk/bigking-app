@@ -3,8 +3,8 @@
 		<view class="bar">
 			<image src="../static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
 			<view class="car-detail">
-				<text class="car-name">{{car.name}}</text>
-				<text class="car-desc">{{car.des}}</text>
+				<text class="car-name">{{userInfo.car.name}}</text>
+				<text class="car-desc">{{userInfo.car.des}}</text>
 			</view>
 			<view class="car-select" @click="update">
 				<text class="icon-text">更换</text>
@@ -29,6 +29,12 @@
 			uniIcons,
 			selectCar
 		},
+		watch:{
+			currentCar(val){
+				const { car } = this.userInfo;
+				val = car
+			}
+		},
 		props:{
 			showButton:{
 				type:Boolean,
@@ -40,20 +46,21 @@
 		},
 		data() {
 			return {
-				car:{
-					name:"奥迪(一汽)A4",
-					des:"2006年款 2.4L 手动档 三厢",
-				},
+				currentCar:{},
 				mycars:[]
 			};
 		},
 		methods:{
 			update(){
+				console.log(11)
 				this.$refs.share.toggleMask();
 				console.log(this.userInfo)
 			}	
 		},
-		created(){}
+		created(){
+			const { car } = this.userInfo
+			this.currentCar = car
+		}
 	}
 </script>
 

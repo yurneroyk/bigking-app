@@ -17,7 +17,7 @@
 								:key="index" 
 								class="vehicle-list-item-contect"
 								hover-class="uni-list-item--hover" 
-								@click="chooseVehicle(item)"
+								@click="chooseVehicle(item,list.letter)"
 							>
 								<view class="uni-list-item__content">{{ item.name }}</view>
 							</view>
@@ -29,6 +29,7 @@
 	</view>
 </template>
 <script>
+	import { mapState } from 'vuex';
 	import { carBrands,addressBook } from '@/data/allBrands.js';
 	import listIndex from '@/components/list-index/list-index';
 	import uniDrawer from "@/components/uni-drawer/uni-drawer.vue"
@@ -68,41 +69,15 @@
 			})
 			addressBook.list=_obj;	
 		},
-		computed: {			
+		computed: {	
+			...mapState(['userInfo']),
 			addressBook() {
-				console.log('computed')
 				return addressBook.list.filter( item => {
 					return item.data.length > 0
 				})
 			}
 		},		
 		methods: {
-			//选择车辆
-			chooseVehicle(data){
-				let url = ''
-				uni.removeStorageSync('vehice_storage');
-				url =  'http://nb-car-brand.nbnat.com/'+this.select_path.brand_id+'/'+data.VehicleId+'.js';
-				this.select_path.vehicle_id = data.VehicleId
-				this.select_path.vehicle_name = data.name
-				uni.request({
-					url: url,
-					success: (res) => {
-						uni.setStorageSync('vehice_storage', res.data);
-						this.showRigth = false;
-						/*
-						数据里包含最多三级数据 [排量,年份,款式]
-						如果返回为数据长度为0则没有下级数据
-						*/
-						if(Object.keys(res.data).length == 0){
-							return uni.$emit('vechice_computed',this.select_path)
-						}
-						uni.navigateTo({
-						    url: '/pages/car/vechice'
-						});
-					
-					}
-				})
-			},
 			// 选择品牌
 			chooseEvent(data) {
 				this.vehicle = this.select_path = []
@@ -129,6 +104,35 @@
 					}
 				})
 			},
+			//选择车辆
+			chooseVehicle(data,letter){
+				let url = ''
+				console.log(data,letter)
+				this.userInfo.car.name = `${letter}${data.name}`
+				uni.removeStorageSync('vehice_storage');
+				url =  'http://nb-car-brand.nbnat.com/'+this.select_path.brand_id+'/'+data.VehicleId+'.js';
+				this.select_path.vehicle_id = data.VehicleId
+				this.select_path.vehicle_name = data.name
+				uni.request({
+					url: url,
+					success: (res) => {
+						uni.setStorageSync('vehice_storage', res.data);
+						this.showRigth = false;
+						/*
+						数据里包含最多三级数据 [排量,年份,款式]
+						如果返回为数据长度为0则没有下级数据
+						*/
+						if(Object.keys(res.data).length == 0){
+							return uni.$emit('vechice_computed',this.select_path)
+						}
+						uni.navigateTo({
+						    url: '/pages/car/vechice'
+						});
+					
+					}
+				})
+			},
+			
 			closeDrawer(e) {
 				this.showRigth = false
 			},

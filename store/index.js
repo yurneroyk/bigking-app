@@ -10,38 +10,46 @@ const store = new Vuex.Store({
 		hasLogin: false,
 		userInfo: {
 			car:{
-				name:"奥迪(一汽)A4",
+				id:'0',
+				name:'奥迪一汽',
 				des:"2006年款 2.4L 手动档 三厢",
+				icon:'../static/emptyCart.jpg'
 			},
 			carList:[
 				{
 					id:'0',
 					name:'奥迪一汽',
-					
+					des:"2006年款 2.0L 手动档 三厢",
 					icon:'../static/emptyCart.jpg'
 				},{   
 					id:'1',
-					name:'奥迪进口',
+					name:'大众',
+					des:"2006年款 1.6L 手动档 三厢",
 					icon:'../static/emptyCart.jpg'
 				},{   
 					id:'2',
-					name:'奥迪进口',
+					name:'福特',
+					des:"2006年款 2.4L 手动档 三厢",
 					icon:'../static/emptyCart.jpg'
 				},{   
 					id:'3',
-					name:'奥迪进口',
+					name:'特斯拉',
+					des:"2006年款 2.4L 手动档 三厢",
 					icon:'../static/emptyCart.jpg'
 				},{   
 					id:'4',
-					name:'奥迪进口',
+					name:'奔马',
+					des:"2006年款 2.4L 手动档 三厢",
 					icon:'../static/emptyCart.jpg'
 				},{   
 					id:'5',
-					name:'奥迪进口',
+					name:'悍马',
+					des:"2006年款 2.4L 手动档 三厢",
 					icon:'../static/emptyCart.jpg'
 				},{   
 					id:'6',
-					name:'奥迪进口',
+					name:'宝马',
+					des:"2006年款 2.4L 手动档 三厢",
 					icon:'../static/emptyCart.jpg'
 				}
 			],

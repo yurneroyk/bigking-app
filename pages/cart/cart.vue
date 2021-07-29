@@ -314,7 +314,7 @@
 	top: var(--window-top);
 	height: calc(100vh - 100rpx);
 	width: 100%;
-	padding-bottom: 150upx;
+	padding-bottom: 160upx;
 	background: #F5F5F5;
 }
 .nav{
@@ -351,6 +351,7 @@
 }
 .swiper-box{
 	height: calc(100% - 288upx);
+	padding-bottom: 10upx;
 	width: 100%;
 }
 /* 空白页 */

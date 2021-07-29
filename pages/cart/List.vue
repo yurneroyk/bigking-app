@@ -53,9 +53,7 @@
 							</view>
 						</view>
 					</view>
-
 					<uni-load-more :status="tabItem.loadingType"></uni-load-more>
-
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -101,49 +99,6 @@
 				inputRefundReason: '',
 				refundOrderItem: '',
 				tabCurrentIndex: 0,
-				// navList: [{
-				// 		state: 0,
-				// 		text: '全部',
-				// 		loadingType: 'more',
-				// 		pageNo: 1,
-				// 		orderList: []
-				// 	},
-				// 	{
-				// 		state: 10,
-				// 		text: '待付款',
-				// 		loadingType: 'more',
-				// 		pageNo: 1,
-				// 		orderList: []
-				// 	},
-				// 	{
-				// 		state: 20,
-				// 		text: '待出库',
-				// 		loadingType: 'more',
-				// 		pageNo: 1,
-				// 		orderList: []
-				// 	},
-				// 	{
-				// 		state: 30,
-				// 		text: '待收货',
-				// 		loadingType: 'more',
-				// 		pageNo: 1,
-				// 		orderList: []
-				// 	},
-				// 	{
-				// 		state: 40,
-				// 		text: '待评价',
-				// 		loadingType: 'more',
-				// 		pageNo: 1,
-				// 		orderList: []
-				// 	},
-				// 	{
-				// 		state: 60,
-				// 		text: '退款中',
-				// 		loadingType: 'more',
-				// 		pageNo: 1,
-				// 		orderList: []
-				// 	}
-				// ],
 				navList: [
 					{
 						text: '全部',
@@ -160,7 +115,7 @@
 								totalPrice:'200'
 							},
 							{
-								id:'1',
+								id:'2',
 								status:'10',
 								carName:"奥迪(一汽)A4",
 								carDes:"2006年款 2.4L 手动档 三厢",
@@ -168,7 +123,7 @@
 								totalPrice:'200'
 							},
 							{
-								id:'1',
+								id:'3',
 								status:'10',
 								carName:"奥迪(一汽)A4",
 								carDes:"2006年款 2.4L 手动档 三厢",
@@ -176,7 +131,7 @@
 								totalPrice:'200'
 							},
 							{
-								id:'1',
+								id:'4',
 								status:'10',
 								carName:"奥迪(一汽)A4",
 								carDes:"2006年款 2.4L 手动档 三厢",

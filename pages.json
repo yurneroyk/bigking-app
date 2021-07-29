@@ -29,7 +29,7 @@
 		}, {
 			"path": "pages/address/list",
 			"style": {
-				"navigationBarTitleText": "收货地址"
+				"navigationBarTitleText": "服务地址"
 			}
 		}, {
 			"path": "pages/address/upsert",
@@ -121,18 +121,15 @@
 			"style": {
 				"navigationBarTitleText":"关于"
 			}
-		}, {
-			"path": "pages/order/list",
+		},{
+			"path": "pages/order/List",
 			"style": {
-				"navigationBarTitleText": "我的订单",
-				"app-plus": {
-					"bounce": "none"
-				}
+				"navigationBarTitleText": "服务列表"
 			}
 		}, {
 			"path": "pages/order/create",
 			"style": {
-				"navigationBarTitleText": "创建订单"
+				"navigationBarTitleText": "确认订单"
 			}
 		}, {
 			"path": "pages/order/detail",
@@ -205,16 +202,6 @@
 				}
 			}
         },{
-            "path" : "pages/service/service",
-            "style" : {
-				"navigationBarTitleText": "服务选择",
-				"app-plus": {
-					"bounce": "none"
-				}
-			}
-        }
-       
-        ,{
             "path" : "pages/cart/List",
             "style" :                                                                                    
             {	

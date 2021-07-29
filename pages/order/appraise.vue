@@ -41,8 +41,6 @@
 				</view>
 			</view>
 		</view>
-		
-        
         <button type="primary" class="appraise-submit" @tap="send">提交</button>
     </view>
 </template>
