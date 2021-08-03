@@ -68,16 +68,23 @@
 				const provinceCode = this.getTarId(this.provinceName);
 				const cityCode = this.getTarId(this.cityName);
 				const townCode = this.getTarId(this.townName);
-				this.$emit("choseVal",{
-					provice:this.provinceName,
-					provinceCode,
-					city:this.cityName,
-					cityCode,
-					town:this.townName,
-					townCode,
-					isChose:1,
-					visible:false
-				});
+			    if(this.provinceName!=="上海"){
+					uni.showModal({
+						content:"目前仅支持上海部分地区的业务"
+					})
+				}else{
+					this.$emit("choseVal",{
+						provice:this.provinceName,
+						provinceCode,
+						city:this.cityName,
+						cityCode,
+						town:this.townName,
+						townCode,
+						isChose:1,
+						visible:false
+					});
+				}
+				
 			},
 			//获取省市区value
 			getTarId(name,type){

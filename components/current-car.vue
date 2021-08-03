@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="bar">
-			<image src="../static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
+			<image :src="userInfo.car.icon" mode="aspectFit" class="car-image"></image>
 			<view class="car-detail">
 				<text class="car-name">{{userInfo.car.name}}</text>
 				<text class="car-desc">{{userInfo.car.des}}</text>

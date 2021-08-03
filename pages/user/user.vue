@@ -46,7 +46,7 @@
 				<list-cell icon="icon-tuandui" iconColor="#EE82EE" title="个人资料" @eventClick="navTo('/pages/user/profile')"></list-cell>
 				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/car/myCar')"></list-cell>
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/list')"></list-cell>
-				<list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="关于" @eventClick="navTo('/pages/user/about')"></list-cell>
+				<list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="客服电话" @eventClick="phoneCall()"></list-cell>
 				<list-cell icon="icon-zuoshang" iconColor="#e07472" title="退出登录" border="" @eventClick="logout()"></list-cell>
 			</view> 
 		</view>
@@ -106,25 +106,7 @@
 				that.$api.request('footprint', 'list').then(res => {
 					that.footprintList = res.data
 				})
-			},
-			
-			deleteFootprint(item) {
-				const that = this
-				uni.showModal({
-					title: '删除？',
-					content: '您确定要删除此足迹吗？',
-					success : (e) => {
-						if (e.confirm) {
-							that.$api.request('footprint', 'delete', {
-								footprintId: item.id
-							}).then(res => {
-								that.loadFootprint()
-							})
-						}
-					}
-				})
-			},
-			
+			},	
 			toLogin() {
 				if (!this.hasLogin) {
 					uni.navigateTo({
@@ -148,7 +130,19 @@
 					}
 				})
 			},
-
+			phoneCall(){
+				uni.makePhoneCall({
+					phoneNumber: '18394176643',
+					// 成功回调
+					success: (res) => {
+					    console.log('调用成功!')
+					},
+					// 失败回调
+					fail: (res) => {
+					    console.log('调用失败!')
+					}
+				})
+			},
 			/**
 			 * 统一跳转接口,拦截未登录路由
 			 * navigator标签现在默认没有转场动画，所以用view

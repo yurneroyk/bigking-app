@@ -1,6 +1,6 @@
 <template>
 	<view class="bar">
-		<image src="../static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
+		<image :src="data.icon" mode="aspectFit" class="car-image"></image>
 		<view class="car-detail">
 			<text v-if="data.name" class="car-name">{{data.name}}</text>
 			<text v-if="data.des" class="car-desc">{{data.des}}</text>

@@ -56,7 +56,7 @@
 			}
 		},
 		onLoad(option){
-			let title = '新增收货地址';
+			let title = '新增服务地址';
 			if(option.type==='edit'){
 				title = '编辑收货地址'
 				this.addressData = JSON.parse(option.data)
@@ -76,7 +76,6 @@
             //res数据源包括已选省市区与省市区code
 				this.lotusAddressData.visible = false;//visible为显示与关闭组件标识true显示false隐藏
 				if(res.isChose){
-					console.log(res)
 					this.lotusAddressData.provinceName = res.provice;//省
 					this.lotusAddressData.cityName = res.city;//市
 					this.lotusAddressData.townName = res.town;//区
@@ -192,8 +191,7 @@
 		margin: 60upx auto;
 		font-size: $font-lg;
 		color: #fff;
-		background-color: $base-color;
+		background-color: $uni-color-primary;
 		border-radius: 10upx;
-		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
 	}
 </style>

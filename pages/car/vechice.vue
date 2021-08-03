@@ -56,7 +56,12 @@
 			choose(data,name,next){
 				if (!next){
 					uni.$emit('vechice_computed',name)
-					this.userInfo.car.des = name
+					const {car,carList} =this.userInfo
+					car.des = name
+					let newCar = Object.assign({},car)
+					carList.push(newCar)
+					console.log(car)
+					console.log(carList)
 					return uni.navigateBack({})
 				}
 				if(this.vehicle_select_title == '请选择排量'){

@@ -153,8 +153,7 @@
 		height: 80upx;
 		font-size: 32upx;
 		color: #fff;
-		background-color: $base-color;
+		background-color: $uni-color-primary;
 		border-radius: 10upx;
-		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
 	}
 </style>

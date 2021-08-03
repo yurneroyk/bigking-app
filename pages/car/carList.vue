@@ -80,6 +80,7 @@
 		methods: {
 			// 选择品牌
 			chooseEvent(data) {
+				this.userInfo.car.icon = data.item.name.img
 				this.vehicle = this.select_path = []
 				this.select_path.computed = false
 				this.select_path.brand_name = data.data.name
@@ -107,9 +108,11 @@
 			//选择车辆
 			chooseVehicle(data,letter){
 				let url = ''
-				console.log(data,letter)
-				this.userInfo.car.name = `${letter}${data.name}`
-				uni.removeStorageSync('vehice_storage');
+				this.userInfo.car = {
+					...this.userInfo.car,
+					id: data.VehicleId,
+					name: `${letter}${data.name}`
+				},
 				url =  'http://nb-car-brand.nbnat.com/'+this.select_path.brand_id+'/'+data.VehicleId+'.js';
 				this.select_path.vehicle_id = data.VehicleId
 				this.select_path.vehicle_name = data.name

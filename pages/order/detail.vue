@@ -186,6 +186,11 @@
 				res += (minutes?(minutes + '分'):'')
 				res += (seconds+'秒')
 				return res
+			},
+			payOrder(){
+				uni.navigateTo({
+					url:"/pages/order/create"
+				})
 			}
 		}
 	}
