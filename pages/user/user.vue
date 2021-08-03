@@ -44,7 +44,7 @@
 					<image v-for="(item, index ) in footprintList" :key="index" @longpress="deleteFootprint(item)" @click="navTo('/pages/product/detail?id=' + item.id)" :src="item.img + '?x-oss-process=style/200px'" mode="aspectFill"></image>
 				</scroll-view>
 				<list-cell icon="icon-tuandui" iconColor="#EE82EE" title="个人资料" @eventClick="navTo('/pages/user/profile')"></list-cell>
-				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/car/myCar')"></list-cell>
+				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/car/mycar')"></list-cell>
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/list')"></list-cell>
 				<list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="客服电话" @eventClick="phoneCall()"></list-cell>
 				<list-cell icon="icon-zuoshang" iconColor="#e07472" title="退出登录" border="" @eventClick="logout()"></list-cell>

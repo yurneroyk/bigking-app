@@ -122,7 +122,7 @@
 				"navigationBarTitleText":"关于"
 			}
 		},{
-			"path": "pages/order/List",
+			"path": "pages/order/list",
 			"style": {
 				"navigationBarTitleText": "服务列表"
 			}
@@ -178,7 +178,7 @@
 				}
 			}
         },{
-            "path" : "pages/car/carList",
+            "path" : "pages/car/carlist",
             "style" : {
 				"navigationBarTitleText": "车型选择",
 				"app-plus": {
@@ -194,7 +194,7 @@
 				}
 			}
         },{
-            "path" : "pages/car/myCar",
+            "path" : "pages/car/mycar",
             "style" : {
 				"navigationBarTitleText": "爱车列表",
 				"app-plus": {
@@ -202,7 +202,7 @@
 				}
 			}
         },{
-            "path" : "pages/cart/List",
+            "path" : "pages/cart/list",
             "style" :                                                                                    
             {	
 				"navigationBarTitleText": "我的订单",
@@ -231,7 +231,7 @@
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/cart/List",
+				"pagePath": "pages/cart/list",
 				"iconPath": "static/icon/order.png",
 				"selectedIconPath": "static/icon/order-current.png",
 				"text": "订单"

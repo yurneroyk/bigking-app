@@ -222,7 +222,7 @@
 			},
 			navToService(){
 				uni.navigateTo({
-					url: `/pages/order/List`
+					url: `/pages/order/list`
 				})
 			},
 			// 橱窗推荐跳转
@@ -243,7 +243,7 @@
 					url = '/pages/product/list?tid=' + unionValue
 				} else if (unionType === 3) {
 					// url = '/pages/service/service?tid=' + unionValue
-					url = '/pages/order/List?tid=2'
+					url = '/pages/order/list?tid=2'
 				} else if (unionType === 5) {
 					url = '/pages/staff/detail?id=' + unionValue
 				}else if (unionType === 4) {

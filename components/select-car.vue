@@ -10,7 +10,7 @@
 				transform: transform
 			}]"
 		>   
-			<view class="share-header" @click="navTo('/pages/car/myCar')">
+			<view class="share-header" @click="navTo('/pages/car/mycar')">
 			  <text>我的爱车</text>
 			  <text class="right">编辑</text>
 			</view>
@@ -28,11 +28,11 @@
 					<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
 					<view class="empty-tips">
 						空空如也
-					<view class="navigator" @click="navTo('/pages/car/carList')">去添加></view>	
+					<view class="navigator" @click="navTo('/pages/car/carlist')">去添加></view>	
 					</view>
 				</view>
 			</scroll-view>
-			<button v-if="showButton" class="bottom b-t" @click="navTo('/pages/car/carList')">其他车型</button>
+			<button v-if="showButton" class="bottom b-t" @click="navTo('/pages/car/carlist')">其他车型</button>
 		</view>
 	</view>
 </template>

@@ -22,7 +22,7 @@
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
 			<view class="empty-tips">空空如也</view>
 		</view>
-		<view class="footer" @click="navTocarList('/pages/car/carList')">
+		<view class="footer" @click="navTocarList('/pages/car/carlist')">
 			<text class="submit">添加爱车</text>
 		</view>
 	</view>
