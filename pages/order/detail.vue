@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<!-- 订单卡片 -->
 		<view class="order-status-bg">
 			<view class="order-status-box">
 				<view class="left-box">
@@ -19,6 +20,7 @@
 				</view>
 			</view>
 		</view>
+		<!-- 预约信息 -->
 		<view class="order-box">
 			<text class="header">预约信息</text>
 			<view class="order-line">
@@ -37,6 +39,7 @@
 				<text class="order-line-value">奥迪(进口) e-tron</text>
 			</view>
 		</view>
+		<!-- 服务项目 -->
 		<view class="order-box">
 			<text class="header">服务项目</text>
 			<view class="order-line">
@@ -55,27 +58,23 @@
 				<text class="order-line-value">奥迪(进口) e-tron</text>
 			</view>
 		</view>
+		<!-- 订单信息 -->
 		<view class="order-box">
 			<text class="header">订单信息</text>
 			<view class="order-line">
 				<text class="order-line-title">支付状态</text>
-				<text class="order-line-value">2021-08-02</text>
+				<text class="order-line-value">未支付</text>
 			</view>
 			<view class="order-line">
 				<text class="order-line-title">支付方式</text>
 				<view class="order-line-value">
-					<text>龙之梦雅仕大厦</text>
-					<text>程鹏 18394176643</text>
+					<text>现场支付</text>
 				</view>
 			</view>
 			<view class="order-line">
 				<text class="order-line-title">下单时间</text>
-				<text class="order-line-value">奥迪(进口) e-tron</text>
+				<text class="order-line-value">2021-08-02</text>
 			</view>
-			<!-- <view class="order-line">
-				<text class="order-line-title">开票信息</text>
-				<text class="order-line-value">奥迪(进口) e-tron</text>
-			</view> -->
 		</view>
 	</view>
 </template>

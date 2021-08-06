@@ -22,9 +22,7 @@
 			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
 			<view class="empty-tips">空空如也</view>
 		</view>
-		<view class="footer" @click="navTocarList('/pages/car/carlist')">
-			<text class="submit">添加爱车</text>
-		</view>
+		<button class="add-btn" @click="navTocarList('/pages/car/carlist')">添加爱车</button>
 	</view>
 </template>
 <script>
@@ -135,43 +133,20 @@
 		}
 	}
 }
-.add-btn{
+.add-btn {
+	position: fixed;
+	left: 30upx;
+	right: 30upx;
+	bottom: 16upx;
+	z-index: 995;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 690upx;
 	height: 80upx;
-	margin: 60upx auto;
-	font-size: $font-lg;
+	font-size: 32upx;
 	color: #fff;
-	background-color: $base-color;
+	background-color: $uni-color-primary;
 	border-radius: 10upx;
-	box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
-}
-.footer {
-	position: fixed;
-	left: 0;
-	bottom: 0;
-	z-index: 995;
-	display: flex;
-	align-items: center;
-	width: 100%;
-	height: 90upx;
-	justify-content: space-between;
-	font-size: 30upx;
-	background-color: #fff;
-	z-index: 998;
-	color: $font-color-base;
-	box-shadow: 0 -1px 5px rgba(0, 0, 0, .1);
-	.submit {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-		color: #fff;
-		font-size: 32upx;
-		background-color: #0f80ff;
-	}
 }
 </style>
