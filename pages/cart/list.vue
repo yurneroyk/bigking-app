@@ -15,13 +15,15 @@
 					<!-- 订单列表 -->
 					<view v-for="(item,index) in tabItem.orderList" :key="index" class="order-item">
 						<navigator :url="'/pages/order/detail?orderid=' + item.id">
+							<!-- 当前下单车辆 -->
 							<view class="bar">
-								<image src="@/static/emptyCart.jpg" mode="aspectFit" class="car-image"></image>
+								<image src="@/static/defaultcar.png" mode="aspectFit" class="car-image"></image>
 								<view class="car-detail">
 									<text class="car-name">{{item.carName}}</text>
 									<text class="car-desc">{{item.carDes}}</text>
 								</view>
 							</view>
+							<!-- 订单内容 -->
 							<view class="main">
 								<view class="lable">
 									<text>2021-07-26 (周一)</text>
@@ -29,7 +31,7 @@
 								</view>
 								<view class="lable">
 									<text>程鹏</text>
-									<text class="tag" :class="{success:item.status=='1'}">{{item.status=='0'? "订单已取消":"订单已创建"}}</text>
+									<text class="tag" :class="{success:item.status=='10'}">{{item.status=='0'? "订单已取消":"订单已创建"}}</text>
 								</view>
 								<view class="lable">
 									<text>上海市黄浦区上海市政府-正门</text>
@@ -40,17 +42,12 @@
 								</view>
 							</view>
 						</navigator>
-						<view class="action-box" v-if="item.status == 10">
-							<button :disabled="submiting" class="action-btn" @click="cancelOrder(item)">取消预约</button>
-							<button class="action-btn recom" @click="payOrder(item)">立即支付</button>
-						</view>
-						<view class="action-box" v-if="item.status == 20">
-							<button :disabled="submiting" class="action-btn " @click="refundOrder(item)">重新下单</button>
-						</view>
-						<view class="action-box" v-if="item.status == 40">
-							<view >
-								<button :disabled="submiting" class="action-btn recom" @click="appraiseOrder(item)">立即评价</button>
-							</view>
+						<!-- 操作区 -->
+						<view class="action-box" >
+							<button :disabled="submiting" class="action-btn" @click="cancelOrder(item)" v-if="item.status == 10">取消预约</button>
+							<button class="action-btn recom" @click="payOrder(item)" v-if="item.status == 10">立即支付</button>
+							<button :disabled="submiting" class="action-btn " @click="refundOrder(item)" v-if="item.status == 20">重新下单</button>
+							<button :disabled="submiting" class="action-btn recom" @click="appraiseOrder(item)" v-if="item.status == 40">立即评价</button>
 						</view>
 					</view>
 					<uni-load-more :status="tabItem.loadingType"></uni-load-more>
@@ -132,7 +129,7 @@
 							},
 							{
 								id:'4',
-								status:'10',
+								status:'40',
 								carName:"奥迪(一汽)A4",
 								carDes:"2006年款 2.4L 手动档 三厢",
 								gmtCreate:'2020-01-01',
@@ -162,6 +159,7 @@
 							{
 								id:'1',
 								gmtCreate:'2020-01-01',
+								status:'40',
 								
 							}
 						]
@@ -350,9 +348,9 @@
 	}
 	.bar {
 		display: flex;
-		background-color: #fff;
 		align-items: center;
-		padding: 10upx 0;
+		padding: 10upx;
+		// border: 1px solid black;
 		.car-image{
 			width:60upx;
 			height:60upx;
@@ -401,7 +399,6 @@
 			font-size: 15px;
 			color: $font-color-dark;
 			position: relative;
-
 			&.current {
 				color: $base-color;
 				&:after {
@@ -494,11 +491,11 @@
 			}
 		}
 	}
-
 	.main{
 		padding: 16upx;
-		border-top:0.5upx solid $border-color-dark;
-		border-bottom:0.5upx solid $border-color-dark;
+		border-radius: 20upx;
+		color: #3f3f3f;
+		border:2upx dashed $border-color-dark;
 	}
 	.price{
 		color: #ff5151;
@@ -510,7 +507,7 @@
 		align-items: center;
 		padding: 10rpx 0 0 10upx;
 		font-size: $font-base;
-		color: $font-color-disabled;
+		// color: $font-color-disabled;
 		justify-content: space-between;
 	}
 	.tag{

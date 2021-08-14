@@ -255,8 +255,8 @@
 		margin: 80upx auto 30upx;
 		font-size: $font-lg;
 		color: #fff;
-		background-color: $base-color;
+		background-color: $uni-color-primary;
 		border-radius: 10upx;
-		box-shadow: 1px 2px 5px rgba(219, 63, 96, 0.4);
+		box-shadow: 1px 2px 5px rgba(30,144,255, 0.4);
 	}
 </style>

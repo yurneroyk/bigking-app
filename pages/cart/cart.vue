@@ -331,7 +331,7 @@
 			align-items: center;
 			height: 100%;
 			font-size: 30upx;
-			color: $font-color-dark;
+			color: $font-color-spec;
 			position: relative;
 			&.current {
 				color: $uni-color-primary;
@@ -343,7 +343,7 @@
 					transform: translateX(-50%);
 					width: 120upx;
 					height: 0;
-					border-bottom: 4upx solid #12227A;
+					border-bottom: 4upx solid $uni-color-primary;
 				}
 			}
 		}

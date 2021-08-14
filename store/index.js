@@ -13,7 +13,7 @@ const store = new Vuex.Store({
 				id:'0',
 				name:'奥迪一汽',
 				des:"2006年款 2.4L 手动档 三厢",
-				icon:'../static/emptyCart.jpg'
+				icon:'/static/defaultcar.png'
 			},
 			carList:[],
 		},

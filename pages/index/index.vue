@@ -121,7 +121,6 @@
 			};
 		},
 		onShow() {
-			console.log(111)
 			this.isVip = this.$api.isVip()
 		},
 		onLoad(options) {
@@ -327,8 +326,6 @@
 		}
 	}
 	/* #endif */
-	
-	
 	page {
 		background: #f5f5f5;
 	}

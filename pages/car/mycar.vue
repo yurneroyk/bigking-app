@@ -19,7 +19,7 @@
 			</view>
 		</view> 
 		<view v-else class="empty">
-			<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
+			<image src="/static/car.png" mode="aspectFit"></image>
 			<view class="empty-tips">空空如也</view>
 		</view>
 		<button class="add-btn" @click="navTocarList('/pages/car/carlist')">添加爱车</button>

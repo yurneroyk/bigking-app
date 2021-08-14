@@ -25,7 +25,7 @@
 					></carItem>
 				</view>
 				<view v-else class="empty">
-					<image src="/static/emptyCart.jpg" mode="aspectFit"></image>
+					<image src="/static/car.png" mode="aspectFit"></image>
 					<view class="empty-tips">
 						空空如也
 					<view class="navigator" @click="navTo('/pages/car/carlist')">去添加></view>	
@@ -191,6 +191,8 @@
 	}
 	.mask-content{
 		width: 100%;
+		border-top-right-radius: 16rpx;
+		border-top-left-radius: 16rpx;
 		height: 580upx;
 		transition: .3s;
 		background: #fff;
@@ -202,12 +204,16 @@
 		}
 	}
 	.share-header{
-		height: 110upx;
-		font-size: $font-base+2upx;
+		height: 80upx;
+		font-size: $font-base;
 		display:flex;
 		align-items:center;
+		/* background-color: grey; */
+		border-radius:20rpx;
+		border:1px solid #F1F1F1;
 		justify-content: space-between;
 		padding: 24upx;
+		margin: 12upx;
 		.right{
 			color: $uni-color-primary;
 		}
@@ -220,8 +226,7 @@
 		align-items:center;
 		justify-content: center;
 		flex-direction: column;
-		position: relative;
-		height:calc(100%-90upx);
+		height:calc(100% - 200upx);
 		width: 100%;
 		background: #fff;
 		image{
