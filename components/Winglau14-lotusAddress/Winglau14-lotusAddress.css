@@ -29,7 +29,7 @@
   box-sizing: border-box;
 }
 .lotus-address-picker2 {
-  color: #e93b3d;
+  color: #147dff;
   position: relative;
 }
 .lotus-address-picker2:after {
@@ -44,8 +44,8 @@
   border-bottom-width: 4rpx;
   border-left-style: solid;
   border-bottom-style: solid;
-  border-left-color: #e93b3d;
-  border-bottom-color: #e93b3d;
+  border-left-color: #147dff;
+  border-bottom-color: #147dff;
 }
 .lotus-address-mask {
   position: fixed;
@@ -103,5 +103,5 @@
   color: #969696;
 }
 .lotus-address-action-affirm {
-  color: #e93b3d;
+  color: #147dff;
 }

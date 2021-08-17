@@ -80,7 +80,7 @@
 		methods: {
 			// 选择品牌
 			chooseEvent(data) {
-				this.userInfo.car.icon = data.item.name.img
+				this.userInfo.car.icon = data.item.name.img;
 				this.vehicle = this.select_path = []
 				this.select_path.computed = false
 				this.select_path.brand_name = data.data.name

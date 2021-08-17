@@ -15,7 +15,6 @@
 					/>
 					<text class="remove">删除</text>
 				</view>
-				
 			</view>
 		</view> 
 		<view v-else class="empty">

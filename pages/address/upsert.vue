@@ -1,16 +1,14 @@
 <template>
 	<view class="content">
-		
 		<view class="row b-b">
 			<text class="tit">联系人</text>
-			<input class="input" type="text" v-model="addressData.consignee" placeholder="收货人姓名" placeholder-class="placeholder" />
+			<input class="input" type="text" v-model="addressData.consignee" placeholder="联系人姓名" placeholder-class="placeholder" />
 		</view>
 		
 		<view class="row b-b">
 			<text class="tit">手机号</text>
-			<input class="input" type="number" v-model="addressData.phone" placeholder="收货人手机号码" placeholder-class="placeholder" />
+			<input class="input" type="number" v-model="addressData.phone" placeholder="联系人手机号码" placeholder-class="placeholder" />
 		</view>
-		
 		<view class="row b-b">
 			<text class="tit">城市</text>
 			<input placeholder="请选择城市" disabled="true" :value="addressData.province + ' ' + addressData.city + ' ' + addressData.county" @click="lotusAddressData.visible = true" class="input">
@@ -93,7 +91,7 @@
 				const that = this
 				let data = this.addressData;
 				if(!data.consignee){
-					this.$api.msg('请填写收货人姓名');
+					this.$api.msg('请填写联系人姓名');
 					return;
 				}
 				if(!/(^1[3|4|5|7|8][0-9]{9}$)/.test(data.phone)){

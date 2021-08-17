@@ -1,10 +1,14 @@
 <template>
 	<view>
 		<view class="bar">
-			<image :src="userInfo.car.icon" mode="aspectFit" class="car-image"></image>
-			<view class="car-detail">
+			<image :src="userInfo.car.icon||'/static/defaultcar.png'" mode="aspectFit" class="car-image"></image>
+			<view v-if="Object.keys(userInfo.car).length !== 0" class="car-detail">
+				{{userInfo.car}}
 				<text class="car-name">{{userInfo.car.name}}</text>
 				<text class="car-desc">{{userInfo.car.des}}</text>
+			</view>
+			<view v-else class="car-detail">
+				<text>全部车型</text>
 			</view>
 			<view class="car-select" @click="update">
 				<text class="icon-text">更换</text>
@@ -28,12 +32,6 @@
 		components:{
 			uniIcons,
 			selectCar
-		},
-		watch:{
-			currentCar(val){
-				const { car } = this.userInfo;
-				val = car
-			}
 		},
 		props:{
 			showButton:{
@@ -66,7 +64,7 @@
 
 <style lang="scss">
 .bar {
-	padding:24upx;
+	padding:24upx 30upx;
 	height: 108upx;
 	display: flex;
 	background-color: #fff;
@@ -84,7 +82,6 @@
 			height: 32upx;
 			line-height: 32upx;
 			text-align: left;
-			
 		}
 		.car-desc{
 			font-size: $font-xs;
