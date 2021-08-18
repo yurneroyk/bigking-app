@@ -88,6 +88,9 @@
 				backgroundColor: 'rgba(0,0,0,.4)',
 			}
 			this.transform = this.config.transform;
+			if(this.userInfo.car){
+				this.select = this.userInfo.car.id
+			}
 		},
 		methods:{
 			navTo(url){
@@ -104,15 +107,16 @@
 			}, 
 			change(item){
 				if(this.select === item.id){
-					this.select=''
+					this.select='';
+					this.userInfo.car = {};
 				}else{
 					this.select = item.id
-					setTimeout(()=>{
-						this.show = false;
-						this.hasTabbar && uni.showTabBar();
-					}, 100)
 					this.userInfo.car = item
 				}
+				setTimeout(()=>{
+					this.show = false;
+					this.hasTabbar && uni.showTabBar();
+				}, 100)
 			},
 			toggleMask(){
 				//防止高频点击
@@ -161,7 +165,7 @@
 	}
 </script>
 
-<style lang='scss'>
+<style lang='scss' scoped>
 	.mask{
 		position:fixed;
 		left: 0;

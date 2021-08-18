@@ -10,12 +10,19 @@ const store = new Vuex.Store({
 		hasLogin: false,
 		userInfo: {
 			car:{
-				// id:'0',
-				// name:'奥迪一汽',
-				// des:"2006年款 2.4L 手动档 三厢",
-				// icon:'/static/car.png'
+				id:'0',
+				name:'奥迪一汽',
+				des:"2006年款 2.4L 手动档 三厢",
+				icon:'/static/car.png'
 			},
-			carList:[],
+			carList:[
+				{
+					id:'0',
+					name:'奥迪一汽',
+					des:"2006年款 2.4L 手动档 三厢",
+					icon:'/static/car.png'
+				},
+			],
 		},
 	},
 	mutations: {

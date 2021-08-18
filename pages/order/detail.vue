@@ -188,7 +188,7 @@
 			},
 			payOrder(){
 				uni.navigateTo({
-					url:"/pages/order/create"
+					url:"/pages/order/list"
 				})
 			}
 		}

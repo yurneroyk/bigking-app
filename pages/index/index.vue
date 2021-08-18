@@ -58,8 +58,7 @@
 		<view  class="f-header m-t">
 			<image src="/static/temp/h1.png"></image>
 			<view class="tit-box">
-				<text class="tit" @click="navToService">员工推荐</text>
-				<text class="tit2">Shop Window</text>
+				<text class="tit">员工推荐</text>
 			</view>
 		</view>
 		<view class="group-section">
@@ -217,11 +216,6 @@
 			navToDetailPage(id) {
 				uni.navigateTo({
 					url: `/pages/product/detail?id=${id}`
-				})
-			},
-			navToService(){
-				uni.navigateTo({
-					url: `/pages/order/list`
 				})
 			},
 			// 橱窗推荐跳转

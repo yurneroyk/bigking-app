@@ -22,8 +22,7 @@
 				<text class="e-m">VIP权益</text>
 				<text class="e-b">{{isVip ? '会员专享VIP价' : '请联系管理员开通会员'}}</text>
 			</view>
-		</view>
-		
+		</view
 		<view 
 			class="cover-container"
 			:style="[{
@@ -34,16 +33,8 @@
 			@touchmove="coverTouchmove"
 			@touchend="coverTouchend"
 		>
-			<image class="arc" src="/static/arc.png"></image>
 			 <view class="history-section icon">
-				<view v-if="footprintList.length > 0" class="sec-header">
-					<text class="yticon icon-lishijilu"></text>
-					<text>浏览历史</text>
-				</view>
-				<scroll-view v-if="footprintList.length > 0" scroll-x class="h-list">
-					<image v-for="(item, index ) in footprintList" :key="index" @longpress="deleteFootprint(item)" @click="navTo('/pages/product/detail?id=' + item.id)" :src="item.img + '?x-oss-process=style/200px'" mode="aspectFill"></image>
-				</scroll-view>
-				<list-cell icon="icon-tuandui" iconColor="#EE82EE" title="个人资料" @eventClick="navTo('/pages/user/profile')"></list-cell>
+				<list-cell icon="icon-tuandui" iconColor="#147dff" title="个人资料"  @eventClick="navTo('/pages/user/profile')"></list-cell>
 				<list-cell icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#ff3527" title="我的爱车" @eventClick="navTo('/pages/car/mycar')"></list-cell>
 				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/list')"></list-cell>
 				<list-cell icon="icon-pinglun-copy" iconColor="#ee883b" title="客服电话" @eventClick="phoneCall()"></list-cell>
@@ -211,7 +202,6 @@
 	  background: #fff;
 	  border-radius: 10upx;
 	}
-
 	.user-section{
 		height: 520upx;
 		padding: 100upx 30upx 0;
@@ -343,7 +333,6 @@
 		}
 	}
 	.history-section{
-		padding: 30upx 0 0;
 		margin-top: 20upx;
 		background: #fff;
 		border-radius:10upx;

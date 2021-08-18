@@ -54,7 +54,7 @@
 			</view>
 			<text class="submit" @click="submit">提交订单</text>
 		</view>
-		<view class="mask" :class="maskState===0 ? 'none' : maskState===1 ? 'show' : ''" >
+		<view class="mask" :class="maskState===0 ? 'none' : maskState===1 ? 'show' : ''">
 			<view class="mask-content" @click.stop.prevent="stopPrevent">
 				<!-- 优惠券页面，仿mt -->
 				<view class="pay-title">
@@ -64,7 +64,7 @@
 					<label class="pay-item" v-for="(item, index) in payTypes" :key="item.value">
 						<view class="title">{{item.title}}</view>
 						<view class="radio">
-							<radio :value="item.value" :checked="value === current" />
+							<radio :value="item.value"  />
 						</view>
 					</label>
 				</radio-group>
@@ -165,10 +165,9 @@
 				}, timer)
 			},
 			radioChange(evt) {
-				this.current=this.payTypes.find((type)=>{
-					type.value === evt.detail.value
-				}).value
-				console.log(evt)
+				console.log(evt.detail)
+				
+				this.toggleMask();
 			},
 			calcFreightPrice() {
 				const that = this
@@ -308,10 +307,9 @@
 			color: #fff;
 			text-align: center;
 			line-height: 32upx;
-			background: #f85e52;
-			border-radius: 4upx;
+			background: $base-color;
+			border-radius: 10upx;
 			margin-right: 12upx;
-
 			&.hb {
 				background: #ffaa0e;
 			}
