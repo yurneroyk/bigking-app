@@ -18,13 +18,13 @@
 		<view class="yt-list">
 			<view class="yt-list-cell">
 				<text class="cell-tit clamp">服务时间</text>
-				<uni-datetime-picker v-model="single" />
+				<uni-datetime-picker v-model="single"  placeholder="请选择上门服务时间"/>
 			</view>
-			<view class="yt-list-cell ">
+			<view class="yt-list-cell">
 				<text class="cell-tit clamp">运费</text>
 				<text class="cell-tip">免运费</text>
 			</view>
-			<view class="yt-list-cell" >
+			<view class="yt-list-cell" @click="toggleMask('show')">
 				<text class="cell-tit clamp">技工选择</text>
 				<text class="cell-tip active">程鹏</text>
 			</view>
@@ -88,7 +88,7 @@
 					freightPrice: 0,
 					addressId: undefined
 				},
-				single: '2021-04-3',
+				single: '',
 				skuCategoryPriceMap: {},
 				payType:'0',
 				maskState: 0, //优惠券面板显示状态
@@ -286,7 +286,7 @@
 	}
 	.yt-list-cell {
 		display: flex;
-		// justify-content: space-around;
+		justify-content: space-between;
 		align-items: center;
 		padding: 10upx 30upx 10upx 40upx;
 		line-height: 70upx;

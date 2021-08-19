@@ -1,13 +1,14 @@
 <template>
 	<view class="content">
-		<view v-if="!hasLogin" class="empty">
+		<!-- <view v-if="!hasLogin" class="empty">
 			<image src="/static/mycar.png" mode="aspectFit"></image>
 			<view class="empty-tips">
 				<text>登录查看订单内容</text>
 				<view class="navigator" @click="navToLogin">去登陆></view>
 			</view>
 		</view>
-		<view v-else class="box">
+		<view v-else class="box"> -->
+		<view class="box">
 			<currentCar :showButton="false"/>
 			<view class="navbar">
 				<view v-for="(item, index) in navList" :key="index" class="nav-item" :class="{current: tabCurrentIndex === index}"
@@ -20,44 +21,12 @@
 					<scroll-view class="list-scroll-content" scroll-y @scrolltolower="loadData">
 						<!-- 空白页 -->
 						<empty v-if="tabItem.loaded === true && tabItem.orderList.length === 0"></empty>
-						<!-- 订单列表 -->
-						<view  v-for="(item,index) in tabItem.orderList" :key="index" class="order-item">
-							<!-- 订单详情 -->
-							<view  @click="navToDetail(item.id)">
-								<!-- 当前下单车辆 -->
-								<view class="bar">
-									<image src="@/static/defaultcar.png" mode="aspectFit" class="car-image"></image>
-									<view class="car-detail">
-										<text class="car-name">{{item.carName}}</text>
-										<text class="car-desc">{{item.carDes}}</text>
-									</view>
-								</view>
-								<!-- 订单内容 -->
-								<view class="main">
-									<view class="lable">
-										<text>2021-07-26 (周一)</text>
-										<text class="price">￥{{item.totalPrice||"--"}}</text>
-									</view>
-									<view class="lable">
-										<text>程鹏</text>
-										<text class="tag" :class="{success:item.status=='10'}">{{item.status=='0'? "订单已取消":"订单已创建"}}</text>
-									</view>
-									<view class="lable">
-										<text>上海市黄浦区上海市政府-正门</text>
-									</view>
-									<view class="lable">
-										<text>机油、机滤、空调滤、空气滤、上门服务费</text>
-									</view>
-								</view>
-							</view>
-							<!-- 操作区 -->
-							<view class="action-box" >
-								<button :disabled="submiting" class="action-btn" @click="cancelOrder(item)" v-if="item.status == 10">取消预约</button>
-								<button class="action-btn recom" @click="payOrder(item)" v-if="item.status == 10">立即支付</button>
-								<button :disabled="submiting" class="action-btn " @click="refundOrder(item)" v-if="item.status == 20">重新下单</button>
-								<button :disabled="submiting" class="action-btn recom" @click="appraiseOrder(item)" v-if="item.status == 40">立即评价</button>
-							</view>
-						</view>
+						<!-- 订单-->
+						<cartItem 
+							:data="item" 
+							v-for="(item,index) in tabItem.orderList" 
+							:key="index"
+						/>
 						<uni-load-more :status="tabItem.loadingType"></uni-load-more>
 					</scroll-view>
 				</swiper-item>
@@ -81,13 +50,16 @@
 	import neilModal from '@/components/neil-modal/neil-modal.vue';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import empty from "@/components/empty";
+	
 	import currentCar from '@/components/current-car.vue';
+	import cartItem from './cartItem.vue'
 	export default {
 		components: {
-			uniLoadMore,
 			empty,
+			uniLoadMore,
 			neilModal,
-			currentCar
+			currentCar,
+			cartItem
 		},
 		computed:{
 			...mapState(['hasLogin','userInfo'])
@@ -106,7 +78,6 @@
 					80: '已取消',
 					90: '已取消(系统)'
 				},
-				submiting: false,
 				refundShow: false,
 				inputRefundReason: '',
 				refundOrderItem: '',
@@ -119,38 +90,42 @@
 						pageNo: 1,
 						loaded:true,
 						orderList:[
-							// {
-							// 	id:'1',
-							// 	status:'10',
-							// 	carName:"奥迪(一汽)A4",
-							// 	carDes:"2006年款 2.4L 手动档 三厢",
-							// 	gmtCreate:'2020-01-01',
-							// 	totalPrice:'200'
-							// },
-							// {
-							// 	id:'2',
-							// 	status:'10',
-							// 	carName:"奥迪(一汽)A4",
-							// 	carDes:"2006年款 2.4L 手动档 三厢",
-							// 	gmtCreate:'2020-01-01',
-							// 	totalPrice:'200'
-							// },
-							// {
-							// 	id:'3',
-							// 	status:'10',
-							// 	carName:"奥迪(一汽)A4",
-							// 	carDes:"2006年款 2.4L 手动档 三厢",
-							// 	gmtCreate:'2020-01-01',
-							// 	totalPrice:'200'
-							// },
-							// {
-							// 	id:'4',
-							// 	status:'40',
-							// 	carName:"奥迪(一汽)A4",
-							// 	carDes:"2006年款 2.4L 手动档 三厢",
-							// 	gmtCreate:'2020-01-01',
-							// 	totalPrice:'200'
-							// }
+							{
+								id:'1',
+								status:'10',
+								carName:"奥迪(一汽)A4",
+								carImage:'/static/defaultcar.png',
+								carDes:"2006年款 2.4L 手动档 三厢",
+								gmtCreate:'2020-01-01',
+								totalPrice:'200'
+							},
+							{
+								id:'2',
+								status:'10',
+								carName:"奥迪(一汽)A4",
+								carImage:'/static/defaultcar.png',
+								carDes:"2006年款 2.4L 手动档 三厢",
+								gmtCreate:'2020-01-01',
+								totalPrice:'200'
+							},
+							{
+								id:'3',
+								status:'10',
+								carName:"奥迪(一汽)A4",
+								carImage:'/static/defaultcar.png',
+								carDes:"2006年款 2.4L 手动档 三厢",
+								gmtCreate:'2020-01-01',
+								totalPrice:'200'
+							},
+							{
+								id:'4',
+								status:'40',
+								carName:"奥迪(一汽)A4",
+								carImage:'/static/defaultcar.png',
+								carDes:"2006年款 2.4L 手动档 三厢",
+								gmtCreate:'2020-01-01',
+								totalPrice:'5000'
+							}
 						]
 					},
 					{
@@ -161,6 +136,9 @@
 							{
 								id:'1',
 								status:'20',
+								carName:"奥迪(一汽)A4",
+							    carDes:"2006年款 2.4L 手动档 三厢",
+								carImage:'/static/car.png',
 								gmtCreate:'2020-01-01',
 								totalPrice:'200'
 							}
@@ -256,7 +234,6 @@
 					that.$set(navItem, 'loaded', true);
 				})
 			},
-
 			//swiper 切换
 			changeTab(e) {
 				this.tabCurrentIndex = e.target.current;
@@ -266,43 +243,10 @@
 			tabClick(index) {
 				this.tabCurrentIndex = index;
 			},
-			payOrder(item) {
-				uni.navigateTo({
-					url: '/pages/pay/pay?orderno='+ item.orderNo + '&price=' + item.actualPrice
-				})
-			},
 			navToLogin(){
 				uni.navigateTo({
 					url: '/pages/public/login'
 				})
-			},
-			navToDetail(id){
-				uni.navigateTo({
-					url: '/pages/order/detail?orderid='+id
-				})
-			},
-			//取消订单
-			cancelOrder(item) {
-				const that = this
-				uni.showModal({
-					title: '取消？',
-					content: '您确定要取消此订单吗？',
-					success : (e) => {
-						if (e.confirm) {
-							that.submiting = true
-							that.$api.request('order', 'cancel', {
-								orderNo: item.orderNo
-							}, failres => {
-								that.submiting = false
-								that.$api.msg(failres.errmsg)
-							}).then(res => {
-								that.submiting = false
-								item.status = 80
-							})
-						}
-					}
-				})
-				
 			},
 			//订单退款
 			refundConfirm() {
@@ -351,17 +295,11 @@
 					}
 				})
 			},
-			showShipTrace(item) {
-				uni.navigateTo({
-					url: "/pages/order/trace?orderno=" + item.orderNo
-				})
-			},
-			//评价订单
-			appraiseOrder(item) {
-				uni.navigateTo({
-					url: '/pages/order/appraise?orderid=' + item.id
-				})
-			}
+			// showShipTrace(item) {
+			// 	uni.navigateTo({
+			// 		url: "/pages/order/trace?orderno=" + item.orderNo
+			// 	})
+			// },
 		}
 	}
 </script>
@@ -438,133 +376,7 @@
 	.uni-swiper-item {
 		height: auto;
 	}
-	.order-item {
-		display: flex;
-		flex-direction: column;
-		padding:24upx;
-		background: #fff;
-		border-radius: 16upx;
-		margin: 16upx 24upx;
-		.i-top {
-			display: flex;
-			align-items: center;
-			height: 80upx;
-			padding-right: 30upx;
-			font-size: $font-base;
-			color: $font-color-dark;
-			position: relative;
-
-			.time {
-				flex: 1;
-			}
-
-			.state {
-				color: $base-color;
-			}
-
-			.del-btn {
-				padding: 10upx 0 10upx 36upx;
-				font-size: $font-lg;
-				color: $font-color-light;
-				position: relative;
-
-				&:after {
-					content: '';
-					width: 0;
-					height: 30upx;
-					border-left: 1px solid $border-color-dark;
-					position: absolute;
-					left: 20upx;
-					top: 50%;
-					transform: translateY(-50%);
-				}
-			}
-		}
-		
-	}
-	.bar {
-		display: flex;
-		align-items: center;
-		padding-bottom: 10upx;
-		border-bottom: 1upx solid rgba(0,0,0,0.06);
-		.car-image{
-			width:60upx;
-			height:60upx;
-			margin-right: 16upx;
-		}
-		.car-detail{
-			display: flex;
-			flex-direction: column;
-			.car-name{
-				font-size: $font-sm;
-				height: 32upx;
-				line-height: 32upx;
-				text-align: left;
-				
-			}
-			.car-desc{
-				font-size: $font-xs;
-				height: 28upx;
-				line-height: 28upx;
-				text-align: left;
-			}
-		}
-	}
-	.main{
-		.lable{
-			display: flex;
-			align-items: center;
-			padding: 10rpx 0 0 10upx;
-			font-size: $font-base;
-			// color: $font-color-disabled;
-			justify-content: space-between;
-		}
-	}	
-	.action-box {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-		height: 60upx;
-		margin-top: 24upx;
-		position: relative;
-	}
-	.action-btn {
-		width: 160upx;
-		height: 60upx;
-		margin: 0;
-		margin-left: 24upx;
-		padding: 0;
-		text-align: center;
-		line-height: 60upx;
-		font-size: $font-sm + 2upx;
-		color: $font-color-dark;
-		background: #fff;
-		border-radius: 100upx;
-		&:after {
-			border-radius: 100upx;
-		}
-		&.recom {
-			background: $uni-color-primary;
-			color: #fff;
-			&:after {
-				border-color: $uni-color-primary;
-			}
-		}
-	}
-	.price{
-		color: #ff5151;
-		font-weight: bold;
-		font-family: monospace;
-	}
-	.tag{
-		color: #fff;
-		padding: 0 10upx;
-		border-radius: 8upx;
-		background-color: #C1C1C1;
-	}
-	.success{
-		background-color: $uni-color-success
-	}
+	
 	/* load-more */
 	.uni-load-more {
 		display: flex;

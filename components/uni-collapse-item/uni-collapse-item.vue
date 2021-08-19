@@ -1,5 +1,5 @@
 <template>
-	<view :class="{ 'uni-collapse-cell--disabled': disabled,'uni-collapse-cell--notdisabled': !disabled, 'uni-collapse-cell--open': isOpen,'uni-collapse-cell--hide':!isOpen }"
+	<view :class="{ 'uni-collapse-cell--disabled': disabled,'uni-collapse-cell--notdisabled': !disabled,'uni-collapse-cell--hide':!isOpen }"
 	 class="uni-collapse-cell">
 		<view class="uni-collapse-cell__title" @click="onClick">
 			<image v-if="thumb" :src="thumb" class="uni-collapse-cell__title-img" />
@@ -7,14 +7,13 @@
 			    v-if="icon"
 				:size="20"
 				class="uni-collapse-check"
-				:color="isOpen?'#4399fc':'#bbb'"
+				:color="isOpen?'#147dff':'#bbb'"
 				type="checkbox-filled"
 			/>
 			
 			<view class="uni-collapse-cell__title-text">
 				<view class="name">
 					{{ title }}
-					<!-- <uni-badge :text="bage" class="detail" type="primary" /> -->
 					<uni-tag :text="tag" size="small" type="primary" class="detail" ></uni-tag>
 				</view>
 				<view class="suggest">{{ note }}</view>
@@ -26,8 +25,16 @@
 			</view>
 			<!-- #endif -->
 			<!-- #ifndef MP-ALIPAY -->
-			<uni-icons :class="{ 'uni-collapse-cell__title-arrow-active': isOpen, 'uni-collapse-cell--animation': showAnimation === true }"
-			 class="uni-collapse-cell__title-arrow" color="#bbb" size="20" type="arrowdown" />
+			<!-- <uni-icons :class="{ 'uni-collapse-cell__title-arrow-active': isOpen, 'uni-collapse-cell--animation': showAnimation === true }"
+			 class="uni-collapse-cell__title-arrow" color="#bbb" size="20" type="arrowdown" /> -->
+			 <view class="uni-collapse-cell_price">
+			 	<text :class="{ 'price-active': isOpen}">
+			 		¥{{price }}
+			 	</text>
+				<text class="originalPrice">
+					(¥{{originalPrice}})
+				</text>
+			 </view>	 
 			<!-- #endif -->
 		</view>
 		<view :class="{'uni-collapse-cell__content--hide':!isOpen}" class="uni-collapse-cell__content">
@@ -76,6 +83,13 @@
 				type: [Number, String],
 				default: 0
 			},
+			price:{
+				type:[Number, String]
+			},
+			originalPrice:{
+				type:[Number, String]
+			},
+			
 			disabled: {
 				// 是否禁用
 				type: Boolean,
@@ -148,7 +162,7 @@
 	.uni-collapse-cell {
 		flex-direction: column;
 		border-color: $uni-border-color;
-		border-bottom-width: 1px;
+		border-bottom-width: 1upx;
 		// border-bottom-style: solid;
 	}
 	.uni-collapse-check {
@@ -169,7 +183,8 @@
 
 
 	.uni-collapse-cell--hide {
-		height: 61px;
+		height:100upx;
+		
 	}
 
 	.uni-collapse-cell--animation {
@@ -180,19 +195,30 @@
 	}
 
 	.uni-collapse-cell__title {
-		padding: 12px 12px;
+		padding: 0 24upx;
 		position: relative;
 		/* #ifndef APP-NVUE */
 		display: flex;
 		width: 100%;
 		box-sizing: border-box;
 		/* #endif */
-		height: 61px;
+		height: 100upx;
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: center;
 	}
-
+	.uni-collapse-cell_price {
+		font-size: $font-base;
+		.price-active{
+			color: red;
+			font-size: $font-base;
+		}
+		.originalPrice{
+			font-size: $font-sm;
+			color: $font-color-light;
+			text-decoration:line-through
+		}
+	}
 	.uni-collapse-cell__title:active {
 		background-color: $uni-bg-color-hover;
 	}
@@ -217,7 +243,6 @@
 
 	.uni-collapse-cell__title-text {
 		flex: 1;
-		padding: 18upx 0;
 		font-size: $font-base;
 		/* #ifndef APP-NVUE */
 		white-space: nowrap;
@@ -230,12 +255,14 @@
 		.name{
 			display: flex;
 			.detail{
-				margin-left: 40upx;
+				margin-left: 24upx;
+				text-align: center;
 			}
 		}
 		.suggest{
 			font-size: $font-sm;
 			color: $font-color-light;
+			margin-top: 3upx;
 		}
 	}
 

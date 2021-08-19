@@ -27,14 +27,13 @@
 				<text class="num">{{swiperLength}}</text>
 			</view>
 		</view>		
-		<!-- 轮播下五按钮 -->
+		<!-- 轮播下四按钮 -->
 		<view class="cate-section">
 			<view v-for="(item, index) in categoryButtomList" :key="index" @click="navToAdvertTargetPage(item)" class="cate-item">
 				<image :src="item.imgUrl"></image>
-				<text>{{item.title}}</text>
+				<text class="item-title">{{item.title}}</text>
 			</view>
 		</view>
-		
 		<!-- 店铺公告 -->
 		<view v-if="postMsgs && postMsgs.length > 0" class="post-section">
 			<swiper style="height: 100%;" :circular="true" :autoplay="true" :vertical="true">
@@ -229,14 +228,14 @@
 			navToAdvertTargetPage(advert) {
 				// 针对Advert Type 不同做不同跳转
 				const {unionType, unionValue} = advert
+				console.log(unionType,unionValue)
 				let url = '/pages/index/index'
 				if (unionType === 1) {
 					url = '/pages/product/detail?id=' + unionValue
 				} else if (unionType === 2) {
 					url = '/pages/product/list?tid=' + unionValue
 				} else if (unionType === 3) {
-					// url = '/pages/service/service?tid=' + unionValue
-					url = '/pages/order/list?tid=2'
+					url = '/pages/order/list?tid=1236911'
 				} else if (unionType === 5) {
 					url = '/pages/staff/detail?id=' + unionValue
 				}else if (unionType === 4) {
@@ -279,12 +278,6 @@
 		}
 	}
 	page{
-		.cate-section{
-			position:relative;
-			z-index:5;
-			border-radius:16upx 16upx 0 0;
-			margin-top:-20upx;
-		}
 		.carousel-section{
 			padding: 0;
 			.titleNview-placing {
@@ -389,17 +382,20 @@
 	}
 	/* 分类 */
 	.cate-section {
+		position:relative;
+		z-index:5;
+		border-radius:16upx 16upx 0 0;
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
 		flex-wrap:wrap;
-		padding: 30upx 22upx; 
+		padding: 16upx; 
 		background: #fff;
 		.cate-item {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			font-size: $font-sm + 2upx;
+			font-size: $font-sm;
 			color: $font-color-dark;
 		}
 		/* 原图标颜色太深,不想改图了,所以加了透明度 */
@@ -409,7 +405,7 @@
 			margin-bottom: 14upx;
 			border-radius: 50%;
 			opacity: .7;
-			box-shadow: 4upx 4upx 20upx rgba(250, 67, 106, 0.3);
+			box-shadow: 4upx 4upx 20upx rgba(0, 0, 0, 0.3);
 		}
 	}
 	.ad-1{

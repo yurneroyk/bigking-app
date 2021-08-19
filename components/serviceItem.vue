@@ -6,7 +6,7 @@
 				<view class="name">
 					{{prod.title}}
 					<view class="first-right">
-					  <text>¥{{ prod.price|| 50 }}</text>
+					  <text>¥{{ prod.original_price||"--" }}{{price}}</text>
 					  <view class="splite">|</view>
 					  <uni-icons
 					  	:size="20" 

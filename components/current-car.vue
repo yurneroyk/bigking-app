@@ -2,7 +2,7 @@
 	<view>
 		<view class="bar">
 			<view class="left">
-				<view v-if="Object.keys(userInfo.car).length" class="car-content">
+				<view v-if="userInfo.car" class="car-content">
 					<image :src='userInfo.car.icon' mode="aspectFit" class="car-image"></image>
 					<view  class="car-detail">
 						<text class="car-name">{{userInfo.car.name}}</text>
@@ -10,7 +10,7 @@
 					</view>
 				</view>
 				<view v-else class="currentcar-empty">
-					<image src='@/static/defaultcar.png' mode="aspectFit" class="image"></image>
+					<image src='/static/defaultcar.png' mode="aspectFit" class="image"></image>
 					<text>全部车辆</text>
 				</view>
 			</view>
@@ -54,15 +54,9 @@
 		},
 		methods:{
 			update(){
-				console.log(11)
 				this.$refs.share.toggleMask();
-				console.log(this.userInfo)
 			}	
 		},
-		created(){
-			const { car } = this.userInfo
-			this.currentCar = car
-		}
 	}
 </script>
 

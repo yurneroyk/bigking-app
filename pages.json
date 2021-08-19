@@ -121,7 +121,17 @@
 			"style": {
 				"navigationBarTitleText": "服务列表"
 			}
-		}, {
+		},{
+            "path" : "pages/cart/list",
+            "style" :                                                                                    
+            {	
+				"navigationBarTitleText": "我的订单",
+                "app-plus": {
+                	"bounce": "none"
+                }
+            }
+            
+        },{
 			"path": "pages/order/create",
 			"style": {
 				"navigationBarTitleText": "确认订单"
@@ -196,16 +206,6 @@
 					"bounce": "none"
 				}
 			}
-        },{
-            "path" : "pages/cart/list",
-            "style" :                                                                                    
-            {	
-				"navigationBarTitleText": "我的订单",
-                "app-plus": {
-                	"bounce": "none"
-                }
-            }
-            
         }
     ],
 	"globalStyle": {
