@@ -61,32 +61,35 @@
 			</view>
 		</view>
 		<view class="group-section">
-			<swiper class="g-swiper" :duration="500">
-				<swiper-item
-					class="g-swiper-item"
+			<view class="g-swiper-item">	
+				<view class="g-item left"
+					v-for="(item,index) in bestStaffList"
+					:key="index" 
+					v-if="index%2==0"
 				>
-					<view class="g-item left">
-						<image :src="bestStaffList[0].avatarUrl" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{bestStaffList[0].des}}</text>
-							<view class="price-box">
-								<text class="price">大厂技术，高级资质认证！</text>
-							</view>
+					<image :src="item.avatarUrl" mode="aspectFill"></image>
+					<view class="t-box">
+						<text class="title clamp">{{item.des}}</text>
+						<view class="price-box">
+							<text class="price">一级棒,高级资质认证！</text>
 						</view>
-						            
-					</view>
-					<view class="g-item right">
-						<image :src="bestStaffList[1].avatarUrl" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{bestStaffList[1].des}}</text>
-							<view class="price-box">
-								<text class="price">高级资质认证！</text> 
-							</view>
+					</view>     
+				</view>
+				<view class="g-item right" 
+					v-for="(item,index) in bestStaffList"
+					:key="index"  
+					v-if="index%2!==0"
+				>
+					<image :src="item.avatarUrl" mode="aspectFill"></image>
+					<view class="t-box">
+						<text class="title clamp">{{item.des}}</text>
+						<view class="price-box">
+							<text class="price">高级资质认证！</text> 
 						</view>
 					</view>
-				</swiper-item>
-
-			</swiper>
+				</view>
+			</view>
+			</scroll-view>
 		</view>
 	</view>
 </template>
@@ -534,7 +537,7 @@
 		}
 		.tit{
 			font-size: $font-lg +2upx;
-			color: #font-color-dark;
+			color: $font-color-dark;
 			line-height: 1.3;
 		}
 		.tit2{
