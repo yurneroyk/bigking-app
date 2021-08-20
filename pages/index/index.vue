@@ -66,9 +66,9 @@
 					class="g-swiper-item"
 				>
 					<view class="g-item left">
-						<image :src="bestStaffList[0].imgUrl" mode="aspectFill"></image>
+						<image :src="bestStaffList[0].avatarUrl" mode="aspectFill"></image>
 						<view class="t-box">
-							<text class="title clamp">{{bestStaffList[0].title}}</text>
+							<text class="title clamp">{{bestStaffList[0].des}}</text>
 							<view class="price-box">
 								<text class="price">大厂技术，高级资质认证！</text>
 							</view>
@@ -76,9 +76,9 @@
 						            
 					</view>
 					<view class="g-item right">
-						<image :src="bestStaffList[1].imgUrl" mode="aspectFill"></image>
+						<image :src="bestStaffList[1].avatarUrl" mode="aspectFill"></image>
 						<view class="t-box">
-							<text class="title clamp">{{bestStaffList[1].title}}</text>
+							<text class="title clamp">{{bestStaffList[1].des}}</text>
 							<view class="price-box">
 								<text class="price">高级资质认证！</text> 
 							</view>
@@ -167,6 +167,7 @@
 					uni.hideLoading()
 				}).then(res => {
 					let data = res.data
+					console.log("data:",data);
 					//轮播
 					if (data.advertisement.t1) {
 						data.advertisement.t1.forEach(item => {
@@ -179,8 +180,8 @@
 						that.titleNViewBackground = data.advertisement.t1[0].color
 					}
 					//员工推荐
-					if (data.advertisement.t2) {
-						that.bestStaffList = data.advertisement.t2
+					if (data.worker) {
+						that.bestStaffList = data.worker
 					}
 					//横幅
 					if (data.advertisement.t3 && data.advertisement.t3.length > 0) {
