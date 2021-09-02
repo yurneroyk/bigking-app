@@ -1,33 +1,54 @@
 <template>
 	<view class="content">
 		<currentCar/>
-		<view class="main">
-			<uni-list v-for="category in categoryList" :key="category.id" class="service">
+		<uni-list class="main">
+			<view class="service" v-for="category in categoryList" :key="category.id">
 				<view class="ele-title">{{category.title}}</view>
 				<uni-collapse
+					v-if="category.spuList.length"
 					@change="serviceCheck"
 				>
 					<uni-collapse-item
-					    v-for="service in category.serviceList"
-					    :key="service.id"
-					    :name="service.id"
-						:note="service.description"
-						:title="service.title"
-						:price="service.price"
-						:open="service.checked"
-						:originalPrice="service.originalPrice"
+						v-for="spu in category.spuList"
+						:key="spu.id"
+						:name="spu.id"
+						:isSpu="true"
+						:note="spu.description"
+						:title="spu.title"
+						:open="spu.checked"
+						:price="spu.price"
+						:originalPrice="spu.originalPrice"
+					>	
+					</uni-collapse-item>
+				</uni-collapse>
+				<uni-collapse
+					v-else
+					@change="serviceCheck"
+				>
+					<uni-collapse-item
+						v-for="children in category.childrenList"
+						:key="children.id"
+						:name="children.id"
+						:note="children.description"
+						:title="children.title"
+						:open="children.checked"
+						:price="children.price"
+						:originalPrice="children.originalPrice"
 					>
 						<serviceItem 
-							v-for="product in service.productList" 
-							:key="product.id" 
-							:prod="product"
+							v-for="spu in children.spuList" 
+							:key="spu.id"
+							:name="children.id+'-'+spu.id"
+							:spu="spu"
+							:ref="children.id+'-'+spu.id"
+							@changeSku="changeSku"
 							@check="checkItem"
 						>
 						</serviceItem>
 					</uni-collapse-item>
 				</uni-collapse>
-			</uni-list>
-		</view>
+			</view>
+		</uni-list>
 		<!-- 底部 -->
 		<view class="footer">
 			<view class="price-content">
@@ -43,19 +64,28 @@
 			</view>
 			<text class="submit" @click="createOrder">下一步</text>
 		</view>
+		<skuList
+			ref="sku"
+			@selectProd="selectProd"
+			:sku="sku"
+			:skuList="skuList"
+			:contentHeight="580"
+		></skuList>
 	</view>
 </template>
-
 <script>
 	import {
 		mapState
 	} from 'vuex';
+	import skuList from './skuList.vue';
 	import currentCar from '@/components/current-car.vue';
-	import serviceItem from '@/components/serviceItem.vue';
+	import serviceItem from './serviceItem.vue';
+	
 	export default {
 		components: {
 			currentCar,
 			serviceItem,
+			skuList
 		},
 		data() {
 			return {
@@ -67,7 +97,10 @@
 				allChecked: false, //全选状态  true|false
 				empty: false, //空白页现实  true|false
 				tabCurrentIndex: 0,
+				currentComponet:'',
 				categoryList:[],
+				skuList:[],
+				sku:{},
 				loadedItemIds: new Set(),
 				tid: ''
 			};
@@ -75,14 +108,13 @@
 		onLoad(options){
 			const that = this
 			that.tid = options.tid
-			console.log(options.tid);
 			uni.showLoading({
 				title: '正在加载'
 			})
 		},
 		onShow() {
 			uni.hideLoading();
-			this.loadData();
+		    this.loadData();
 		},
 		watch:{
 			//显示空白页
@@ -97,34 +129,23 @@
 			...mapState(['hasLogin'])
 		},
 		methods: {
-			checkItem(val){
-				console.log(val.checked)
-				this.categoryList.forEach((item)=>{
-					item.serviceList.forEach(service=>{
-						service.productList.forEach(product=>{
-							product.checked = !product.checked 
-						})
-					})
-				})
-			},
 			async loadData(){
 				const that = this
-				that.$api.request('product', 'getProductPage').then(res => {
-					that.categoryList = res.data.items
-					that.categoryList.forEach((item)=>{
-						item.serviceList.forEach(service=>{
-							service.checked = service.id == this.tid
-							service.productList.forEach(product=>{
-								product.checked = true
-							})
-						})
-					})
-					console.log(that.categoryList,"+++")
+				that.$api.request('product', 'getAllProductList').then(res => {
+					that.categoryList = res.data;
 				})
 			},
-			serviceCheck(val){
-				console.log(val)
+			changeSku(val,val2){
+				this.$refs.sku.toggleMask()
+				this.skuList = val;
+				this.currentComponet = val2;
 			},
+			selectProd(val){
+				const name = this.currentComponet
+				this.$refs[name][0].sku = val
+			},
+			checkItem(val){},
+			serviceCheck(val){},
 			//监听image加载完成
 			onImageLoad(item) {
 				this.loadedItemIds.add(item.id)

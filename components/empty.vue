@@ -12,7 +12,6 @@
 				default: 'empty'
 			},
 		},
-
 		data() {
 			return {
 				typeSrc: {

@@ -16,7 +16,7 @@
 					{{ title }}
 					<uni-tag :text="tag" size="small" type="primary" class="detail" ></uni-tag>
 				</view>
-				<view class="suggest">{{ note }}</view>
+				<view class="suggest" v-if="note">{{ note }}</view>
 			</view>
 			<!-- #ifdef MP-ALIPAY -->
 			<view :class="{ 'uni-collapse-cell__title-arrow-active': isOpen, 'uni-collapse-cell--animation': showAnimation === true }"
@@ -25,8 +25,6 @@
 			</view>
 			<!-- #endif -->
 			<!-- #ifndef MP-ALIPAY -->
-			<!-- <uni-icons :class="{ 'uni-collapse-cell__title-arrow-active': isOpen, 'uni-collapse-cell--animation': showAnimation === true }"
-			 class="uni-collapse-cell__title-arrow" color="#bbb" size="20" type="arrowdown" /> -->
 			 <view class="uni-collapse-cell_price">
 			 	<text :class="{ 'price-active': isOpen}">
 			 		¥{{price }}
@@ -84,10 +82,12 @@
 				default: 0
 			},
 			price:{
-				type:[Number, String]
+				type:[Number, String],
+				default:'15'
 			},
 			originalPrice:{
-				type:[Number, String]
+				type:[Number, String],
+				default:'15'
 			},
 			
 			disabled: {
@@ -109,6 +109,10 @@
 				// 缩略图
 				type: String,
 				default: ''
+			},
+			isSpu:{
+				type: Boolean,
+				default: false
 			}
 		},
 		data() {

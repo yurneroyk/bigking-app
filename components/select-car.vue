@@ -113,10 +113,11 @@
 					this.select = item.id
 					this.userInfo.car = item
 				}
+				this.transform = this.config.transform;
 				setTimeout(()=>{
+					this.backgroundColor = 'rgba(0,0,0,0)';
 					this.show = false;
-					this.hasTabbar && uni.showTabBar();
-				}, 100)
+				}, 200)
 			},
 			toggleMask(){
 				//防止高频点击
@@ -175,7 +176,7 @@
 		display:flex;
 		justify-content: center;
 		align-items: flex-end;
-		z-index: 998;
+		z-index: 20000;
 		transition: .6s;
 		.bottom{
 			position:absolute;

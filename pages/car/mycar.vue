@@ -35,10 +35,7 @@
 		computed:{
 			...mapState(['userInfo'])
 		},
-		onShow() {
-			console.log(11)
-			console.log(this.userInfo)
-		},
+		onShow() {},
 		watch:{
 			//显示空白页
 			cartList(e){
