@@ -76,7 +76,7 @@ const request = (_gp, _mt, data = {}, failCallback) => {
 			success: (res) => {
 				if (res.statusCode === 200) {
 					if (res.data.errno === 200) {
-						resolve(res.data);
+						resolve(res.data)
 					} else if (res.data.errno === 10001) {
 						if (failCallback) {
 							failCallback(res.data)
@@ -101,7 +101,6 @@ const request = (_gp, _mt, data = {}, failCallback) => {
 								}
 							})
 						}
-
 					} else {
 						if (failCallback) {
 							failCallback(res.data)

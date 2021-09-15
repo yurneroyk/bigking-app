@@ -186,9 +186,6 @@
 						})
 					})
 				})
-
-
-
 			},
 			wechatLogin() {
 				const that = this

@@ -1,14 +1,5 @@
 <template>
 	<view class="container">
-		<!-- 小程序头部兼容 -->
-		<!-- #ifdef MP -->
-	<!-- 	<view class="mp-search-box">
-			<navigator url="/pages/product/search" hover-class="none">
-				<input class="ser-input" type="text" value="输入关键字搜索" disabled />
-			</navigator>
-			
-		</view> -->
-		<!-- #endif -->
 		<!-- 头部轮播 -->
 		<view class="carousel-section">
 			<!-- 标题栏和状态栏占位符 -->
@@ -55,7 +46,7 @@
 		</view>
 		<!-- 员工推荐 -->
 		<view  class="f-header m-t">
-			<image src="/static/temp/h1.png"></image>
+			<image src="/static/staff/recommend.png"></image>
 			<view class="tit-box">
 				<text class="tit">员工推荐</text>
 			</view>
@@ -160,6 +151,7 @@
 			this.loadData()
 		},
 		methods: {
+			// 首页加载
 			async loadData() {
 				const that = this
 				uni.showLoading({
@@ -170,7 +162,6 @@
 					uni.hideLoading()
 				}).then(res => {
 					let data = res.data
-					console.log("data:",data);
 					//轮播
 					if (data.advertisement.t1) {
 						data.advertisement.t1.forEach(item => {
@@ -190,10 +181,6 @@
 					if (data.advertisement.t3 && data.advertisement.t3.length > 0) {
 						that.banner = data.advertisement.t3[0]
 					}
-					// //热销
-					// if (data.salesTop) {
-					// 	that.salesTop = data.salesTop
-					// }
 					//分类5Buttom
 					if (data.advertisement.t4) {
 						that.categoryButtomList = data.advertisement.t4
@@ -215,49 +202,36 @@
 				this.swiperCurrent = index;
 				this.titleNViewBackground = this.carouselList[index].color;
 			},
-			// 详情页
-			navToDetailPage(id) {
-				uni.navigateTo({
-					url: `/pages/product/detail?id=${id}`
-				})
-			},
-			// 橱窗推荐跳转
-			// navToWindowSuggestSpu(index) {
-			// 	const that = this
-			// 	uni.navigateTo({
-			// 		url: '/pages/product/detail?id=' + that.windowSpuList[index].id
-			// 	})
-			// },
 			// 跳转到广告目标页
 			navToAdvertTargetPage(advert) {
 				// 针对Advert Type 不同做不同跳转
-				const {unionType, unionValue} = advert
-				console.log(unionType,unionValue)
-				let url = '/pages/index/index'
-				if (unionType === 1) {
-					url = '/pages/product/detail?id=' + unionValue
-				} else if (unionType === 2) {
-					url = '/pages/product/list?tid=' + unionValue
-				} else if (unionType === 3) {
-					url = '/pages/order/list?tid=1236911'
-				} else if (unionType === 5) {
-					url = '/pages/staff/detail?id=' + unionValue
-				}else if (unionType === 4) {
-					url = unionValue
+				if(uni.getStorageSync('userInfo')){
+					const {unionType, unionValue} = advert
+					let url = '/pages/index/index'
+					if (unionType === 1) {
+						url = '/pages/product/detail?id=' + unionValue
+					} else if (unionType === 2) {
+						url = '/pages/product/list?tid=' + unionValue
+					} else if (unionType === 3) {
+						url = '/pages/order/list?tid=1236911'
+					} else if (unionType === 5) {
+						url = '/pages/staff/detail?id=' + unionValue
+					}else if (unionType === 4) {
+						url = unionValue
+					}
+					uni.navigateTo({
+						url: url,
+					})
+				}else{
+					// 针对首页未登录的情况，先跳到登录页进行微信登录
+					uni.navigateTo({
+						url: '/pages/public/login'
+					})
 				}
-				uni.navigateTo({
-					url: url
-				})
+				
+				
 			}
 		},
-		// #ifndef MP
-		// 标题栏input搜索框点击
-		onNavigationBarSearchInputClicked: async function(e) {
-			uni.navigateTo({
-				url: '/pages/product/search'
-			})
-		},
-		// #endif
 	}
 </script>
 
